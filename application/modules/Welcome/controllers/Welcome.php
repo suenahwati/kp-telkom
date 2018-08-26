@@ -20,6 +20,8 @@ class Welcome extends MX_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data = array();
+		//$this->load->view('welcome_message');
+		$this->template->load('backend_template', 'welcome_message', $data);
 	}
 }

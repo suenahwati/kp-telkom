@@ -57,6 +57,29 @@ class User_m extends CI_Model
 
     }
 
+    public function save()
+    {
+        $data = array(
+            'id' => get_uuid(),
+            'username' => $this->input->post('username'),
+            'password' => sha1($this->input->post('password')),
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'active' => $this->input->post('active'),
+            'created_by' => $this->session->userdata('logged_in')['id'],
+            'date_created' => date("Y-m-d H:i:s", time())
+        );
+
+        $this->db->insert('users',$data);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function update($id)
     {
 
@@ -81,15 +104,34 @@ class User_m extends CI_Model
         return false;
     }
 
+    public function soft_delete($id)
+    {
+
+        $data = array(  
+            'deleted' => '1',
+            'modified_by' => $this->session->userdata('logged_in')['id'],
+            'date_modified' => date("Y-m-d H:i:s", time()),
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function login()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $this->db->from($this->_table);
+        $this->db->from('users');
         $this->db->where('username', $username);
         $this->db->where('password=SHA1("' . $password . '")', '', false);
-        $this->db->where('active = 1');
+        $this->db->where('active','1');
+        $this->db->where('deleted','0');
         $result = $this->db->get();
 
         if ($result->num_rows() == 0) {
@@ -111,7 +153,7 @@ class User_m extends CI_Model
 
             $data = array('last_login' => date("Y-m-d H:i:s", time()));
             $this->db->where('id', $userdata->id);
-            $this->db->update($this->_table,$data);
+            $this->db->update('users',$data);
 
             return true;
         }
@@ -122,7 +164,7 @@ class User_m extends CI_Model
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $this->db->from($this->_table);
+        $this->db->from('users');
         $this->db->where('username', $username);
         $this->db->where('password=SHA1("' . $password . '")', '', false);
         $this->db->where('active = 1');
@@ -147,7 +189,7 @@ class User_m extends CI_Model
 
             $data = array('last_login' => date("Y-m-d H:i:s", time()));
             $this->db->where('id', $userdata->id);
-            $this->db->update($this->_table,$data);
+            $this->db->update('users',$data);
 
             return true;
         }

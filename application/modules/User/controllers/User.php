@@ -22,6 +22,12 @@ class User extends MX_Controller
         $this->template->load('backend_template', 'datalist', $data);
     }
 
+    public function create(){
+
+        $this->template->load('backend_template', 'create', null);
+
+    }
+
 
     public function get($id){
 
@@ -42,24 +48,58 @@ class User extends MX_Controller
 
     }
 
+    public function save(){
+
+        $this->form_validation->set_rules('username','Username','required|trim|is_unique[users.username]');
+        $this->form_validation->set_rules('password','Password','trim|required');
+        $this->form_validation->set_rules('repeat_password','Repeat Password','trim|required|matches[password]');
+        $this->form_validation->set_rules('email','Email','required');
+        $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
+
+        if ($this->form_validation->run()) {
+            if ($this->user_m->save()) {
+                send_success_message();
+                redirect($this->base_redirect);
+            } else {
+                send_error_message('Failed Saving Data to Database');
+                $this->create();              
+            }
+        } 
+        else {
+            send_error_message();
+            $this->create();
+        }
+    }
+
     public function update($id){
                     
         $this->form_validation->set_rules('email','Email','required');
         $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
 
-        if ($this->form_validation->run() == false) {
-            send_error_message();
-            $this->get($id);
-        } else {
-            if ($this->user_m->update($id) == false) {
+        if ($this->form_validation->run()) {
+            if ($this->user_m->update($id)) {
+                send_success_message();
+                redirect($this->base_redirect);
+            } else {
                 send_error_message();
                 $this->get($id);
-            } else {
-                send_success_message();
-
-                redirect($this->base_redirect);
             }
+        } else {
+            send_error_message();
+            $this->get($id);
         }
+    }
+
+    public function delete($id){
+
+        if ($this->user_m->soft_delete($id)) {
+            $this->session->set_flashdata('success', 'Success Delete Data');
+            redirect($this->base_redirect);
+        } else {
+            send_error_message();
+            $this->session->set_flashdata('error', 'Failed to Delete Data');
+        }
+
     }
 
     public function login()

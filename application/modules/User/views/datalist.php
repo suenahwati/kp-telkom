@@ -17,11 +17,11 @@
           <div class="panel-heading">
               <h3 class="panel-title">List Users</h3>
               <div class="btn-group pull-right">
-                  <a href="<?php echo base_url('user/create')?>" class="btn btn-success btn-condensed">Create New</a> &nbsp;
+
               </div>                                     
           </div>
           <div class="panel-body">
-              <table id="example" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
+              <table id="example1" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
                   <thead>
                       <tr>
                           <th>Username</th>
@@ -38,7 +38,7 @@
                               <td><?php echo $r->email ?></td>
                               <td><?php echo $r->first_name ?></td>
                               <td><?php echo $r->last_name ?></td>
-                              <td><a href="<?php echo base_url('user/get/'.$r->id)?>">Edit</a></td>
+                              <td class="dt-center"><?php echo btn_edit('user/get/'.$r->id)?> <?php echo btn_delete('user/delete/'.$r->id)?></td>
                           </tr>                                            
                       <?php endforeach ?>
                   </tbody>
@@ -50,3 +50,21 @@
     
     
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#example1').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Tambah Data',
+                action: function ( e, dt, node, config ) {
+                    window.location.href="<?php echo base_url('user/create')?>";
+                }
+            }
+        ]
+    } );
+} );
+
+</script>

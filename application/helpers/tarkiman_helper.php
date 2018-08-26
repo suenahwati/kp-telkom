@@ -624,32 +624,32 @@ function input_currency($field_name, $label, $value = '',$required = false, $rea
       echo'</div>';
 }
 
-function input_password($field_name, $label, $required = false)
+function input_password2($field_name, $label, $value = '',$required = false, $readonly=false, $disabled=false,$class='col-md-6 col-xs-12',$clearfix=true)
 {
     $req = ($required) ? '<font color="red"> * </font>' : '';
+
     $attribut = array(
-        'name' => $field_name,
-        'id' => $field_name,
-        'class' => 'form-control',
-        'placeholder' => 'Enter'.$label
-    );
-    $value = null;
+                    'name' => $field_name,
+                    'id' => $field_name,
+                    'class' => 'form-control',
+                    'placeholder' => 'Enter '.$label,
+                );
 
-    //!$readonly ?: $attribut['readonly'] = true;
+    !$disabled ?: $attribut['disabled'] = true;
 
-    echo'<div class="form-group">';                                        
-          echo'<label class="col-md-3 col-xs-12 control-label">'.$label.$req.'</label>';
-          echo'<div class="col-md-6 col-xs-12">';
-              echo'<div class="input-group">';
-                  echo'<span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>';
-                  echo form_password($attribut, set_value($field_name, $value));
-                  
-              echo'</div>';            
-              echo'<span class="help-block"></span>';
-              echo form_error($field_name);
-          echo'</div>';
-      echo'</div>';
+    !$readonly ?: $attribut['readonly'] = true;
+
+    echo'<div class="'.$class.'">';
+        echo'<div class="form-group">';
+            echo'<label>'.$label.$req.'</label>';
+            echo form_password($attribut, set_value($field_name, $value));
+            echo '<font color="red">'.form_error($field_name).'</font>';
+        echo'</div>';
+    echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
 }
+
 
 function input_repeat_password($field_name, $label, $equalTo = '',$required = false)
 {

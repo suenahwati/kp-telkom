@@ -6,7 +6,7 @@ $autoload['libraries'] = array('database', 'session', 'form_validation', 'templa
 
 $autoload['drivers'] = array();
 
-$autoload['helper'] = array('file', 'form', 'url','tarkiman');
+$autoload['helper'] = array('file', 'form', 'url','tarkiman','util');
 
 $autoload['config'] = array();
 

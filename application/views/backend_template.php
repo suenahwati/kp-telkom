@@ -60,6 +60,14 @@
         .navbar-inverse .navbar-nav .active>li>a:hover {
             background-color: #e41b13 !important;
         }
+        .dt-button {
+/*            color: #fff !important;
+            background-color: #5cb85c !important;
+            border-color: #4cae4c !important;*/
+            background-image: unset !important;
+/*            border: 1px solid transparent !important;*/
+            border-radius: 4px !important;
+        }
     </style>
 
 </head>

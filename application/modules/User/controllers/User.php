@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * @author 
+ * @author Suenawati | suenahwati@gmail.com | 085315646257 | 
  */
 
 class User extends MX_Controller

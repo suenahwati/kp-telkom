@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * @author 
+ * @author Suenawati | suenahwati@gmail.com | 085315646257 | https://www.linkedin.com/in/suenawati
  */
 
 class User_m extends CI_Model

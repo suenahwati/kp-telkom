@@ -12,6 +12,6 @@ $autoload['config'] = array();
 
 $autoload['language'] = array();
 
-$autoload['model'] = array();
+$autoload['model'] = array('user/user_m');
 
 

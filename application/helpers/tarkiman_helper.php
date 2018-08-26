@@ -217,6 +217,10 @@ function slugify($text)
     return $text;
 }
 
+function clearfix(){
+    echo '<div class="clearfix"></div>';
+}
+
 function input_button($name='',$label='',$value='',$class='btn btn-success btn-sm')
 {
     echo '<button type="button" id="'.$name.'" name="'.$name.'" $value="'.$value.'" class="'.$name.'">'.$label.'</button>';
@@ -395,17 +399,17 @@ function load_notif()
 {
     $CI = &get_instance();
     if ($CI->session->flashdata('error')) {
-        // echo '<div class="alert alert-dismissible alert-danger">';
-        // echo '<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>';
-        // echo $CI->session->flashdata('error');
-        // echo '</div>';
-      echo "<script>$(document).ready(function(){t_alert('error','".$CI->session->flashdata('error')."');});</script>";
+        echo '<div class="alert alert-dismissible alert-danger">';
+        echo '<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>';
+        echo $CI->session->flashdata('error');
+        echo '</div>';
+      //echo "<script>$(document).ready(function(){t_alert('error','".$CI->session->flashdata('error')."');});</script>";
     } elseif ($CI->session->flashdata('success')) {
-        // echo '<div class="alert alert-dismissible alert-success">';
-        // echo '<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>';
-        // echo $CI->session->flashdata('success');
-        // echo '</div>';
-        echo "<script>$(document).ready(function(){t_alert('success','".$CI->session->flashdata('success')."');});</script>";
+        echo '<div class="alert alert-dismissible alert-success">';
+        echo '<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>';
+        echo $CI->session->flashdata('success');
+        echo '</div>';
+      //echo "<script>$(document).ready(function(){t_alert('success','".$CI->session->flashdata('success')."');});</script>";
     }
 }
 
@@ -454,7 +458,7 @@ function stock_status($status)
     return $ret;
 }
 
-function input_text($field_name, $label, $value = '',$required = false, $readonly=false, $class='col-md-6 col-xs-12')
+function input_text($field_name, $label, $value = '',$required = false, $readonly=false, $disabled=false, $class='col-md-6 col-xs-12',$clearfix=true)
 {
     $req = ($required) ? '<font color="red"> * </font>' : '';
 
@@ -465,22 +469,23 @@ function input_text($field_name, $label, $value = '',$required = false, $readonl
                     'placeholder' => 'Enter '.$label,
                 );
 
+    !$disabled ?: $attribut['disabled'] = true;
+
     !$readonly ?: $attribut['readonly'] = true;
 
     echo'<div class="form-group">';
-        echo'<label class="col-md-3 col-xs-12 control-label">'.$label.$req.'</label>';
+        echo'<label class="col-md-2 col-xs-12 control-label">'.$label.$req.'</label>';
         echo'<div class="'.$class.'">';                                            
-            echo'<div class="input-group">';
-                echo'<span class="input-group-addon"><span class="fa fa-pencil"></span></span>';
-                echo form_input( $attribut, set_value($field_name, $value));
-            echo'</div>';                                            
+            echo form_input( $attribut, set_value($field_name, $value));                                           
             echo'<span class="help-block"></span>';
-            echo form_error($field_name);
+            echo '<font color="red">'.form_error($field_name).'</font>';
         echo'</div>';
     echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
 }
 
-function input_text2($field_name, $label, $value = '',$required = false, $readonly=false, $class='col-md-6 col-xs-12')
+function input_text2($field_name, $label, $value = '',$required = false, $readonly=false, $disabled=false,$class='col-md-6 col-xs-12',$clearfix=true)
 {
     $req = ($required) ? '<font color="red"> * </font>' : '';
 
@@ -491,13 +496,18 @@ function input_text2($field_name, $label, $value = '',$required = false, $readon
                     'placeholder' => 'Enter '.$label,
                 );
 
+    !$disabled ?: $attribut['disabled'] = true;
+
     !$readonly ?: $attribut['readonly'] = true;
 
-    echo'<div class="form-group">';
-        echo'<label>'.$label.$req.'</label>';
-        echo form_input( $attribut, set_value($field_name, $value));
-        echo form_error($field_name);
+    echo'<div class="'.$class.'">';
+        echo'<div class="form-group">';
+            echo'<label>'.$label.$req.'</label>';
+            echo form_input( $attribut, set_value($field_name, $value));
+            echo '<font color="red">'.form_error($field_name).'</font>';
+        echo'</div>';
     echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
 
 }
 

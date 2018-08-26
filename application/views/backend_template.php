@@ -11,13 +11,14 @@
 
     <title>Suenawati - 10115167 - UAS ATOL</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php asset_back('css/bootstrap.min.css')?>" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="<?php asset_back('css/thumbnail-gallery.css')?>" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/dataTables/css/jquery.dataTables.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/bootstrap-3.3.7/dist/css/bootstrap.min.css')?>">
+    <script src="<?php asset_back('js/jquery.min.js')?>"></script>
+    <script src="<?php asset_back('plugins/bootstrap-3.3.7/dist/js/bootstrap.min.js')?>"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,8 +28,33 @@
     <![endif]-->
 
     <style type="text/css">
-        body{
-            /*padding-top: 0px !important;*/
+        .navbar-inverse {
+            background-color: #fff;
+            border-color: #e41b13 !important;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: #fff !important;
+        }
+
+        a.navbar-brand.logo {
+            width: 190px;
+            display: block;
+            text-indent: -9999px;
+            background: url(<?php asset_back('images/logo.png')?>) no-repeat;
+        }
+
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+            color: #fff;
+            background-color: #e41b13 !important;
+        }
+
+        .navbar-inverse .navbar-nav>li>a:hover {
+            background-color: #e41b13 !important;
+        }
+
+        .navbar-inverse .navbar-nav .active>li>a:hover {
+            background-color: #e41b13 !important;
         }
     </style>
 
@@ -47,16 +73,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?php echo base_url() ?>">Home</a>
-                <a class="navbar-brand" href="<?php echo base_url('welcome') ?>">Welcome</a>
+                <a class="navbar-brand logo" href="<?php echo base_url() ?>"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                <!--     <li>
-                        <a href="index.php?page=dashboard">Kementrian Agama </a>
-                    </li> -->
-
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Input Data
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Input Data Odp</a></li>
+                          <li><a href="#">Input Progress Capex</a></li>
+                        </ul>
+                      </li>
+                    <li><a href="<?php echo base_url('upload-data') ?>">Upload Data</a></li>
+                    <li><a href="<?php echo base_url('maps') ?>">Lihat Maps</a></li>
+                    <li><a href="<?php echo base_url('user') ?>">User</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <?php if ($this->session->userdata('logged_in')): ?>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('logged_in')['full_name']?></a></li>
+                        <li><a href="<?php echo base_url('logout') ?>"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>                        
+                    <?php else:?>
+                        <li><a href="<?php echo base_url('sign-up') ?>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="<?php echo base_url('login') ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <?php endif ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

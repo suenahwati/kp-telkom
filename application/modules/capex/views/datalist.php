@@ -50,7 +50,7 @@
                               <td><?php echo $r->item ?></td>
                               <td><?php echo $r->cost_element ?></td>
                               <td><?php echo $r->name ?></td>
-                              <td class="dt-center"><?php echo btn_edit('user/get/'.$r->id)?> <?php echo btn_delete('user/delete/'.$r->id)?></td>
+                              <td class="dt-center"><?php echo btn_edit('capex/get/'.$r->id)?> <?php echo btn_delete('capex/delete/'.$r->id)?></td>
                           </tr>                                            
                       <?php endforeach ?>
                   </tbody>

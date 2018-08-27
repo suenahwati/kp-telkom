@@ -21,14 +21,14 @@ class Capex_m extends CI_Model
         ref_document_number,
         item,
         cost_element,
-        NAME,
+        name,
         vendor,
         user_name,
         document_date,
         value_trancurr,
         debit_date,
         document_header_text,
-        Purchasing_Document,
+        purchasing_document,
         vendor2
         FROM capex
         WHERE deleted='0'";

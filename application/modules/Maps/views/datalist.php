@@ -60,11 +60,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Pemetaan Pemasaran Product Berdasarkan Tweet Pengguna Twitter
+                            Pengolahan Data Telkom Indonesia Berbasis Web
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i> Suenawati - 10115167 - UAS Aplikasi Teknologi Online 
+                                <i class="fa fa-dashboard"></i> PT.TELKOM INDONESIA REGIONAL III JAWA BARAT
                             </li>
                         </ol>
                     </div>
@@ -112,8 +112,8 @@
                       </div> -->
                       <div class="col-lg-10">
                         <div class="form-group">
-                          <label>Keyword Name Produk</label>
-                          <input type="text" name="nama_produk" value="<?php echo $r->keywords ?>" placeholder="Masukan Keywords" class="form-control">
+                          <label>Keyword Lokasi</label>
+                          <input type="text" name="nama_lokasi" value="<?php  ?>" placeholder="Masukan lokasi" class="form-control">
                         </div>
                       </div>
                       <div class="col-lg-2">
@@ -130,7 +130,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-location-arrow fa-fw"></i> Google Maps - Pemetaan Pemasaran Produk Berdasarkan Tweet Pengguna Twitter</h3>
+                                <h3 class="panel-title"><i class="fa fa-location-arrow fa-fw"></i> Google Maps - Pengolahan Data Telkom Berbasis Web</h3>
                             </div>
                             <div class="panel-body">
                                 <!--<div id="morris-area-chart"></div>-->
@@ -146,7 +146,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-location-arrow fa-fw"></i> Tabel Tweet Berdasarkan Keywords. <br/><span style="color:red">*Long Lat (Menggunakan API Google Map berdasarkan lokasi/Kota dari pengguna twitter)</span></h3>
+                                <h3 class="panel-title"><i class="fa fa-location-arrow fa-fw"></i> Tabel Lokasi Berdasarkan Keywords. <br/><span style="color:red">*Long Lat (Menggunakan API Google Map berdasarkan lokasi)</span></h3>
                             </div>
                             <div class="panel-body">
                                 <table id="example" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">

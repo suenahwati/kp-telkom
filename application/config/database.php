@@ -75,10 +75,20 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	
+	/*DEFAULT*/
+	// 'hostname' => 'localhost',
+	// 'username' => 'root',
+	// 'password' => '',
+	// 'database' => 'kp-telkom',
+
+	/*SUENAH*/
+	'hostname' => '192.168.1.105',
+	'username' => 'suenah',
+	'password' => 'suenah',
 	'database' => 'kp-telkom',
+
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            User
+            Data ODP
         </h1>
 <!--         <ol class="breadcrumb">
             <li class="active">
@@ -24,20 +24,21 @@
               <table id="example" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
                   <thead>
                       <tr>
-                          <th>Username</th>
-                          <th>Email</th>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Action</th>
+                          <th>Noss ID</th>
+                          <th>ODP Index</th>
+                          <th>ODP Name</th>
+                          <th>Latitude</th>
+                          <th>clus Name</th>
                       </tr>
                   </thead>
                   <tbody>
                       <?php foreach ($result as $r): ?>
                           <tr>
-                              <td><?php echo $r->username ?></td>
-                              <td><?php echo $r->email ?></td>
-                              <td><?php echo $r->first_name ?></td>
-                              <td><?php echo $r->last_name ?></td>
+                              <td><?php echo $r->noss_id ?></td>
+                              <td><?php echo $r->odp_index ?></td>
+                              <td><?php echo $r->odp_name ?></td>
+                              <td><?php echo $r->clusname ?></td>
+                              <td><?php echo $r->clusterstatus ?></td>
                               <td><a href="<?php echo base_url('user/get/'.$r->id)?>">Edit</a></td>
                           </tr>                                            
                       <?php endforeach ?>

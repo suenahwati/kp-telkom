@@ -4,56 +4,19 @@
  * @author Suenawati | suenahwati@gmail.com | 085315646257 | https://www.linkedin.com/in/suenawati
  */
 
-class input_data_m extends CI_Model
+class Odp_m extends CI_Model
 {
 
 	public $_table = "users";
 
 	public function getData(){
 	    $sql = "
-	    SELECT 
-		 Noss_id,
-		 odp_index,
-		 odp_name,
-		 latitude,
-		 longitude,
-		 clusname,
-         clusterstatus,
-         avai,
-         used,
-         rsk,
-         rsv,
-         is_total,
-         regional,
-         witel,
-         datel,
-         sto,
-         sto_desc,
-         odp_info,
-         update_date,
-         keterangan
-		FROM input_data
-		WHERE deleted='0'";
-
-	    $query = $this->db->query($sql);
-
-	    if($query->num_rows() > 0){
-
-	        return $query->result();
-	    }
-
-	    return array();
-	}
-
-	public function get($id){
-
-        $sql = "
-        SELECT 
-		 Noss_id,
+	   SELECT
+         id,
+         noss_id,
          odp_index,
          odp_name,
          latitude,
-         longitude,
          clusname,
          clusterstatus,
          avai,
@@ -68,10 +31,56 @@ class input_data_m extends CI_Model
          sto_desc,
          odp_info,
          update_date,
-         keterangan
-		FROM input_data
-		WHERE 
-		deleted='0'
+         keterangan,
+         date_created,
+         date_modified,
+         created_by,
+         modified_by,
+         deleted
+        FROM odp 
+        WHERE deleted='0'";
+
+	    $query = $this->db->query($sql);
+
+	    if($query->num_rows() > 0){
+
+	        return $query->result();
+	    }
+
+	    return array();
+	}
+
+	public function get($id){
+
+        $sql = "
+        SELECT
+         `id`,
+         `noss_id`,
+         `odp_index`,
+         `odp_name`,
+         `latitude`,
+         `clusname`,
+         `clusterstatus`,
+         `avai`,
+         `used`,
+         `rsk`,
+         `rsv`,
+         `is_total`,
+         `regional`,
+         `witel`,
+         `datel`,
+         `sto`,
+         `sto_desc`,
+         `odp_info`,
+         `update_date`,
+         `keterangan`,
+         `date_created`,
+         `date_modified`,
+         `created_by`,
+         `modified_by`,
+         `deleted`
+        FROM `odp` 
+        WHERE deleted='0'
 		AND id=? ";
 
         $query = $this->db->query($sql, array($id) );

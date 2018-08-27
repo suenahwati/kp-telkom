@@ -46,16 +46,27 @@ class Capex_m extends CI_Model
 	public function get($id){
 
         $sql = "
-        SELECT 
-		 id,
-		 username,
-		 email,
-		 last_login,
-		 first_name,
-		 last_name
-		FROM users
-		WHERE 
-		deleted='0'
+        SELECT
+        id, 
+        new_co,
+        docc,
+        witel,
+        packet,
+        wbs_element,
+        ref_document_number,
+        item,
+        cost_element,
+        name,
+        vendor,
+        user_name,
+        document_date,
+        value_trancurr,
+        debit_date,
+        document_header_text,
+        purchasing_document,
+        vendor2
+        FROM capex
+        WHERE deleted='0'
 		AND id=? ";
 
         $query = $this->db->query($sql, array($id) );
@@ -73,18 +84,28 @@ class Capex_m extends CI_Model
     {
         $data = array(
             'id' => get_uuid(),
-            'username' => $this->input->post('username'),
-            'password' => sha1($this->input->post('password')),
-            'first_name' => $this->input->post('first_name'),
-            'last_name' => $this->input->post('last_name'),
-            'email' => $this->input->post('email'),
-            'phone' => $this->input->post('phone'),
-            'active' => $this->input->post('active'),
+            'new_co' => $this->input->post('new_co'),
+            'docc' => sha1($this->input->post('docc')),
+            'witel' => $this->input->post('witel'),
+            'packet' => $this->input->post('packet'),
+            'wbs_element' => $this->input->post('wbs_element'),
+            'ref_document_number' => $this->input->post('ref_document_number'),
+            'item' => $this->input->post('item'),
+            'cost_element' => $this->input->post('cost_element'),
+            'name' => $this->input->post('name'),
+            'vendor' => $this->input->post('vendor'),
+            'user_name' => $this->input->post('user_name'),
+            'document_date' => $this->input->post('document_date'),
+            'value_trancurr' => $this->input->post('value_trancurr'),
+            'debit_date' => $this->input->post('debit_date'),
+            'document_header_text' => $this->input->post('document_header_text'),
+            'purchasing_document' => $this->input->post('purchasing_document'),
+            'vendor2' => $this->input->post('vendor2'),
             'created_by' => $this->session->userdata('logged_in')['id'],
             'date_created' => date("Y-m-d H:i:s", time())
         );
 
-        $this->db->insert('users',$data);
+        $this->db->insert('capex',$data);
 
         if ($this->db->affected_rows() > 0) {
             return true;
@@ -96,9 +117,23 @@ class Capex_m extends CI_Model
     {
 
         $data = array(
-            'first_name' => $this->input->post('first_name'),
-            'last_name' => $this->input->post('last_name'),
-            'email' => $this->input->post('email'),
+            'new_co' => $this->input->post('new_co'),
+            'docc' => sha1($this->input->post('docc')),
+            'witel' => $this->input->post('witel'),
+            'packet' => $this->input->post('packet'),
+            'wbs_element' => $this->input->post('wbs_element'),
+            'ref_document_number' => $this->input->post('ref_document_number'),
+            'item' => $this->input->post('item'),
+            'cost_element' => $this->input->post('cost_element'),
+            'name' => $this->input->post('name'),
+            'vendor' => $this->input->post('vendor'),
+            'user_name' => $this->input->post('user_name'),
+            'document_date' => $this->input->post('document_date'),
+            'value_trancurr' => $this->input->post('value_trancurr'),
+            'debit_date' => $this->input->post('debit_date'),
+            'document_header_text' => $this->input->post('document_header_text'),
+            'purchasing_document' => $this->input->post('purchasing_document'),
+            'vendor2' => $this->input->post('vendor2'),
             'modified_by' => $this->session->userdata('logged_in')['id'],
             'date_modified' => date("Y-m-d H:i:s", time()),
         );
@@ -108,7 +143,7 @@ class Capex_m extends CI_Model
         }
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('capex', $data);
 
         if ($this->db->affected_rows() > 0) {
             return true;
@@ -126,7 +161,7 @@ class Capex_m extends CI_Model
         );
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('capex', $data);
 
         if ($this->db->affected_rows() > 0) {
             return true;
@@ -139,7 +174,7 @@ class Capex_m extends CI_Model
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $this->db->from('users');
+        $this->db->from('capex');
         $this->db->where('username', $username);
         $this->db->where('password=SHA1("' . $password . '")', '', false);
         $this->db->where('active','1');
@@ -165,7 +200,7 @@ class Capex_m extends CI_Model
 
             $data = array('last_login' => date("Y-m-d H:i:s", time()));
             $this->db->where('id', $userdata->id);
-            $this->db->update('users',$data);
+            $this->db->update('capex',$data);
 
             return true;
         }
@@ -176,7 +211,7 @@ class Capex_m extends CI_Model
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $this->db->from('users');
+        $this->db->from('capex');
         $this->db->where('username', $username);
         $this->db->where('password=SHA1("' . $password . '")', '', false);
         $this->db->where('active = 1');
@@ -201,7 +236,7 @@ class Capex_m extends CI_Model
 
             $data = array('last_login' => date("Y-m-d H:i:s", time()));
             $this->db->where('id', $userdata->id);
-            $this->db->update('users',$data);
+            $this->db->update('capex',$data);
 
             return true;
         }

@@ -6,7 +6,7 @@
 
 class Capex extends MX_Controller
 {
-    protected $base_redirect = 'user';
+    protected $base_redirect = 'capex';
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Capex extends MX_Controller
 
     public function get($id){
 
-    	$result = $this->user_m->get($id);
+    	$result = $this->capex_m->get($id);
 
     	if($result){
 
@@ -51,14 +51,24 @@ class Capex extends MX_Controller
 
     public function save(){
 
-        $this->form_validation->set_rules('username','Username','required|trim|is_unique[users.username]');
-        $this->form_validation->set_rules('password','Password','trim|required');
-        $this->form_validation->set_rules('repeat_password','Repeat Password','trim|required|matches[password]');
-        $this->form_validation->set_rules('email','Email','required');
-        $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
+        $this->form_validation->set_rules('new_co','New/CO','required|trim');
+        $this->form_validation->set_rules('docc','DoCC','required|trim');
+        $this->form_validation->set_rules('witel','WITEL','required|trim');
+        $this->form_validation->set_rules('packet','PACKET','required|trim');
+        $this->form_validation->set_rules('wbs_element','WBS','required|trim');
+        $this->form_validation->set_rules('ref_document_number','Ref>document Number','required|trim');
+        $this->form_validation->set_rules('item','Item','required|trim');
+        $this->form_validation->set_rules('cost_element','Cost Element','required|trim');
+        $this->form_validation->set_rules('name','Name','required|trim');
+        $this->form_validation->set_rules('vendor','Vendor','required|trim');
+        $this->form_validation->set_rules('user_name','User Name','required|trim');
+        $this->form_validation->set_rules('document_date','Document Date','required|trim');
+        $this->form_validation->set_rules('value_trancurr','Value TranCurr','required|trim');
+        $this->form_validation->set_rules('debit_date','Debit Date','required|trim');
+        $this->form_validation->set_rules('vendor2','Vendor2','required|trim');
 
         if ($this->form_validation->run()) {
-            if ($this->user_m->save()) {
+            if ($this->capex_m->save()) {
                 send_success_message();
                 redirect($this->base_redirect);
             } else {
@@ -74,11 +84,23 @@ class Capex extends MX_Controller
 
     public function update($id){
                     
-        $this->form_validation->set_rules('email','Email','required');
-        $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
-
+        $this->form_validation->set_rules('new_co','New/CO','required|trim');
+        $this->form_validation->set_rules('docc','DoCC','required|trim');
+        $this->form_validation->set_rules('witel','WITEL','required|trim');
+        $this->form_validation->set_rules('packet','PACKET','required|trim');
+        $this->form_validation->set_rules('wbs_element','WBS','required|trim');
+        $this->form_validation->set_rules('ref_document_number','Ref>document Number','required|trim');
+        $this->form_validation->set_rules('item','Item','required|trim');
+        $this->form_validation->set_rules('cost_element','Cost Element','required|trim');
+        $this->form_validation->set_rules('name','Name','required|trim');
+        $this->form_validation->set_rules('vendor','Vendor','required|trim');
+        $this->form_validation->set_rules('user_name','User Name','required|trim');
+        $this->form_validation->set_rules('document_date','Document Date','required|trim');
+        $this->form_validation->set_rules('value_trancurr','Value TranCurr','required|trim');
+        $this->form_validation->set_rules('debit_date','Debit Date','required|trim');
+        $this->form_validation->set_rules('vendor2','Vendor2','required|trim');
         if ($this->form_validation->run()) {
-            if ($this->user_m->update($id)) {
+            if ($this->capex_m->update($id)) {
                 send_success_message();
                 redirect($this->base_redirect);
             } else {
@@ -93,7 +115,7 @@ class Capex extends MX_Controller
 
     public function delete($id){
 
-        if ($this->user_m->soft_delete($id)) {
+        if ($this->capex_m->soft_delete($id)) {
             $this->session->set_flashdata('success', 'Success Delete Data');
             redirect($this->base_redirect);
         } else {
@@ -117,7 +139,7 @@ class Capex extends MX_Controller
                 //$data['data'] = $this->config_m->getConfig();
                 $this->load->view('user/login',null);
             } else {
-                if ($this->user_m->login()) {
+                if ($this->capex_m->login()) {
                     //$landing_page = $this->group_m->landing_page();
                     redirect($landing_page);
                 }
@@ -130,7 +152,7 @@ class Capex extends MX_Controller
 
     public function logout()
     {
-        $this->user_m->logout();
+        $this->capex_m->logout();
         redirect('login');
     }
 
@@ -148,7 +170,7 @@ class Capex extends MX_Controller
                 //$data['data'] = $this->config_m->getConfig();
                 $this->load->view('user/signup',null);
             } else {
-                if ($this->user_m->signup()) {
+                if ($this->capex_m->signup()) {
                     //$landing_page = $this->group_m->landing_page();
                     redirect($landing_page);
                 }

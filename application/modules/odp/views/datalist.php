@@ -28,7 +28,14 @@
                           <th>ODP Index</th>
                           <th>ODP Name</th>
                           <th>Latitude</th>
-                          <th>clus Name</th>
+                          <th>Clus Name</th>
+                          <th>Cluster Status</th>
+                          <th>avai</th>
+                          <th>Used</th>
+                          <th>rsk</th>
+                          <th>rsv</th>
+                          <th>Is Total</th>
+                          <th>regional</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -39,6 +46,12 @@
                               <td><?php echo $r->odp_name ?></td>
                               <td><?php echo $r->clusname ?></td>
                               <td><?php echo $r->clusterstatus ?></td>
+                              <td><?php echo $r->avai ?></td>
+                              <td><?php echo $r->used ?></td>
+                              <td><?php echo $r->rsk ?></td>
+                              <td><?php echo $r->rsv ?></td>
+                              <td><?php echo $r->is_total ?></td>
+                              <td><?php echo $r->regional ?></td>
                               <td><a href="<?php echo base_url('user/get/'.$r->id)?>">Edit</a></td>
                           </tr>                                            
                       <?php endforeach ?>

@@ -94,8 +94,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Input Data
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                          <li><a href="#">Input Data Odp</a></li>
-                          <li><a href="#">Input Progress Capex</a></li>
+                          <li><a href="<?php echo base_url('odp') ?>">Input Data Odp</a></li>
+                          <li><a href="<?php echo base_url('capex') ?>">Input Progress Capex</a></li>
                         </ul>
                       </li>
                     <li><a href="<?php echo base_url('upload-data') ?>">Upload Data</a></li>

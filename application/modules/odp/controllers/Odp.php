@@ -24,6 +24,42 @@ class Odp extends MX_Controller
     }
 
 
+     public function create(){
+
+        $this->template->load('backend_template', 'create', null);
+
+    }
+
+    public function save(){
+
+        var_dump($_POST);
+        //die();
+
+        $this->form_validation->set_rules('noss_id','Noss ID','required|trim');
+        $this->form_validation->set_rules('odp_index', 'ODP INDEX','required|trim|min_length[3]');
+        $this->form_validation->set_rules('odp_name','ODP Name','required|trim');
+        $this->form_validation->set_rules('latitude','Latitude','required|trim');
+        $this->form_validation->set_rules('longitude','Longitude','required|trim');
+
+
+        if ($this->form_validation->run()) {
+            if ($this->odp_m->save()) {
+                send_success_message();
+                redirect($this->base_redirect);
+            } else {
+                send_error_message('Failed Saving Data to Database');
+                $this->create();              
+            }
+        } 
+        else {
+            send_error_message();
+            $this->create();
+        }
+    }
+
+
+
+
     public function get($id){
 
     	$result = $this->odp_m->get($id);
@@ -73,7 +109,6 @@ class Odp extends MX_Controller
             send_error_message();
             $this->session->set_flashdata('error', 'Failed to Delete Data');
         }
-    
-}
+    }
 
 }

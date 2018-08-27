@@ -13,7 +13,7 @@
     <?php load_notif() ?>
     <?php validation_errors() ?>
     </div>
-    <form method="post" action="<?php echo base_url('user/save')?>">
+    <form method="post" action="<?php echo base_url('capex/save')?>">
 
       <?php input_text2('new_co', 'New/CO', null, true, false, false)?>
 
@@ -52,9 +52,9 @@
 
       <?php input_text2('debit_date', 'Debit Date', null, true, false, false)?>
 
-      <?php input_text2('document_header_text', 'Document Header Text', null, true, false, false)?>
+      <?php input_text2('document_header_text', 'Document Header Text', null, false, false, false)?>
 
-      <?php input_text2('Purchasing_Document', 'Purchasing Document', null, true, false, false)?>
+      <?php input_text2('Purchasing_Document', 'Purchasing Document', null, false, false, false)?>
 
       <?php input_text2('vendor2', 'Vendor2', null, true, false, false)?>
 

@@ -89,8 +89,7 @@ class Capex extends MX_Controller
         $this->form_validation->set_rules('witel','WITEL','required|trim');
         $this->form_validation->set_rules('packet','PACKET','required|trim');
         $this->form_validation->set_rules('wbs_element','WBS','required|trim');
-        $this->form_validation->set_rules('ref_document_number','Ref>document Number','required|trim');
-        $this->form_validation->set_rules('item','Item','required|trim');
+        $this->form_validation->set_rules('ref_document_number','Ref.document Number','required|trim');
         $this->form_validation->set_rules('cost_element','Cost Element','required|trim');
         $this->form_validation->set_rules('name','Name','required|trim');
         $this->form_validation->set_rules('vendor','Vendor','required|trim');

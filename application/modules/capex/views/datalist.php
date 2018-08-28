@@ -31,6 +31,9 @@
                           <th>PACKET</th>
                           <th>WBS Element</th>
                           <th>Ref.document Number</th>
+                          <th>Item</th>
+                          <th>Cost Element</th>
+                          <th>Name</th>
                           <th>Action</th>
                       </tr>
                   </thead>
@@ -44,7 +47,10 @@
                               <td><?php echo $r->packet ?></td>
                               <td><?php echo $r->wbs_element ?></td>
                               <td><?php echo $r->ref_document_number ?></td>
-                              <td class="dt-center"><?php echo btn_edit('user/get/'.$r->id)?> <?php echo btn_delete('user/delete/'.$r->id)?></td>
+                              <td><?php echo $r->item ?></td>
+                              <td><?php echo $r->cost_element ?></td>
+                              <td><?php echo $r->name ?></td>
+                              <td class="dt-center"><?php echo btn_edit('capex/get/'.$r->id)?> <?php echo btn_delete('capex/delete/'.$r->id)?></td>
                           </tr>                                            
                       <?php endforeach ?>
                   </tbody>
@@ -66,7 +72,7 @@ $(document).ready(function() {
             {
                 text: 'Tambah Data',
                 action: function ( e, dt, node, config ) {
-                    window.location.href="<?php echo base_url('user/create')?>";
+                    window.location.href="<?php echo base_url('capex/create')?>";
                 }
             }
         ]

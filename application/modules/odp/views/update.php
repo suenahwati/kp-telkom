@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            User
+            Odp
         </h1>
         <ol class="breadcrumb">
             <li class="active">
-                <i class="fa fa-dashboard"></i> Table Data User 
+                <i class="fa fa-dashboard"></i> Table Data ODP
             </li>
         </ol>
     </div>
@@ -13,15 +13,15 @@
 		<?php load_notif() ?>
 		<?php validation_errors() ?>
     </div>
-    <form method="post" action="<?php echo base_url('user/update/'.$result->id)?>">
+    <form method="post" action="<?php echo base_url('odp/update/'.$result->id)?>">
 
-      <?php input_text2('username', 'Username', $result->username, true, false, true)?>
+      <?php input_text2('odp_name','odp_name', $result->odp_name, true, false, false)?>
 
-      <?php input_text2('email', 'Email', $result->email, true, false, false)?>
+      <?php input_text2('latitude','latitude', $result->latitude, true, false, false)?>
 
-      <?php input_text2('first_name', 'First Name', $result->first_name, true, false, false)?>
+      <?php input_text2('longitude','longitude', $result->longitude, true, false, false)?>
 
-      <?php input_text2('last_name', 'Last Name', $result->last_name, false, false, false)?>
+      <?php input_text2('keterangan','keterangan', $result->keterangan, false, false, false)?>
 
       <div class="col-lg-12">
         <div class="form-group">

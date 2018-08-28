@@ -7,7 +7,7 @@
 class Odp_m extends CI_Model
 {
 
-	public $_table = "users";
+	public $_table = "odp";
 
 	public function getData(){
 	    $sql = "
@@ -17,6 +17,7 @@ class Odp_m extends CI_Model
          odp_index,
          odp_name,
          latitude,
+         longitude,
          clusname,
          clusterstatus,
          avai,
@@ -59,6 +60,7 @@ class Odp_m extends CI_Model
          `odp_index`,
          `odp_name`,
          `latitude`,
+         `longitude`,
          `clusname`,
          `clusterstatus`,
          `avai`,
@@ -110,6 +112,16 @@ class Odp_m extends CI_Model
             'rsk'=> $this->input->post,('rsk'),
             'rsv'=> $this->input->post,('rsv'),
             'is_total'=> $this->input->post,('is_total'),
+            'regional'=> $this->input->post,('regional'),
+            'witel'=> $this->input->post,('witell'),
+            'datel'=> $this->input->post,('datel'),
+            'sto'=> $this->input->post,('sto'),
+            'sto_desc'=> $this->input->post,('sto_desc'),
+            'odp_info'=> $this->input->post,('odp_info'),
+            'update_date'=> $this->input->post,('update_date'),
+            'keterangan'=> $this->input->post,('keterangan'),
+            'created_by'=> $this->input->post,('created_by'),
+            'date_created'=> $this->input->post,('date_created'),
 
 
         );
@@ -119,7 +131,7 @@ class Odp_m extends CI_Model
         }
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('odp', $data);
 
         if ($this->db->affected_rows() > 0) {
             return true;

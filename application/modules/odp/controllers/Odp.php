@@ -35,11 +35,13 @@ class Odp extends MX_Controller
         var_dump($_POST);
         //die();
 
-        $this->form_validation->set_rules('noss_id','Noss ID','required|trim');
-        $this->form_validation->set_rules('odp_index', 'ODP INDEX','required|trim|min_length[3]');
+        // $this->form_validation->set_rules('noss_id','Noss ID','required|trim');
+        // $this->form_validation->set_rules('odp_index', 'ODP INDEX','required|trim|min_length[3]');
         $this->form_validation->set_rules('odp_name','ODP Name','required|trim');
         $this->form_validation->set_rules('latitude','Latitude','required|trim');
         $this->form_validation->set_rules('longitude','Longitude','required|trim');
+        $this->form_validation->set_rules('keterangan','keterangan','required|trim');
+
 
 
         if ($this->form_validation->run()) {

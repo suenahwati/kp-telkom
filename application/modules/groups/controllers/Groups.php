@@ -6,7 +6,7 @@
 
 class Groups extends MX_Controller
 {
-    protected $base_redirect = 'user';
+    protected $base_redirect = 'groups';
 
     public function __construct()
     {
@@ -58,7 +58,7 @@ class Groups extends MX_Controller
         $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
 
         if ($this->form_validation->run()) {
-            if ($this->user_m->save()) {
+            if ($this->groups_m->save()) {
                 send_success_message();
                 redirect($this->base_redirect);
             } else {
@@ -78,7 +78,7 @@ class Groups extends MX_Controller
         $this->form_validation->set_rules('first_name','First Name','required|trim|min_length[3]');
 
         if ($this->form_validation->run()) {
-            if ($this->user_m->update($id)) {
+            if ($this->groups_m->update($id)) {
                 send_success_message();
                 redirect($this->base_redirect);
             } else {
@@ -93,7 +93,7 @@ class Groups extends MX_Controller
 
     public function delete($id){
 
-        if ($this->user_m->soft_delete($id)) {
+        if ($this->groups_m->soft_delete($id)) {
             $this->session->set_flashdata('success', 'Success Delete Data');
             redirect($this->base_redirect);
         } else {
@@ -117,7 +117,7 @@ class Groups extends MX_Controller
                 //$data['data'] = $this->config_m->getConfig();
                 $this->load->view('user/login',null);
             } else {
-                if ($this->user_m->login()) {
+                if ($this->groups_m->login()) {
                     //$landing_page = $this->group_m->landing_page();
                     redirect($landing_page);
                 }
@@ -130,7 +130,7 @@ class Groups extends MX_Controller
 
     public function logout()
     {
-        $this->user_m->logout();
+        $this->groups_m->logout();
         redirect('login');
     }
 

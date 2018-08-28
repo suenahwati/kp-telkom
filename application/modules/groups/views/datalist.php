@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            User
+            Group
         </h1>
 <!--         <ol class="breadcrumb">
             <li class="active">
@@ -26,6 +26,8 @@
                       <tr>
                           <th>Group Name</th>
                           <th>Description</th>
+                          <th>Action</th>
+
                       </tr>
                   </thead>
                   <tbody>

@@ -53,7 +53,7 @@
 
       <?php input_text2('update_date', 'UPDATE DATE', null, false, false, false)?>
 
-      <?php input_text2('keterangan', 'KETERANGAN', null, false, false, false)?>
+      <?php input_text2('keterangan', 'KETERANGAN', null, true, false, false)?>
 
       <div class="col-lg-12">
         <div class="form-group">

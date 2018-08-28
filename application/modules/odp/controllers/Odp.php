@@ -32,7 +32,7 @@ class Odp extends MX_Controller
 
     public function save(){
 
-        var_dump($_POST);
+        //var_dump($_POST);
         //die();
 
         // $this->form_validation->set_rules('noss_id','Noss ID','required|trim');
@@ -83,21 +83,23 @@ class Odp extends MX_Controller
 
     public function update($id){
                     
-        $this->form_validation->set_rules('Odp','Odp','required');
-        $this->form_validation->set_rules('Odp-Odp','Odp','required|trim|min_length[3]');
+        $this->form_validation->set_rules('odp_name','ODP Name','required');
+        $this->form_validation->set_rules('latitude','Latitude','required|trim|min_length[3]');
+        $this->form_validation->set_rules('longitude','longitude','required|trim|min_length[3]');
 
-        if ($this->form_validation->run() == false) {
-            send_error_message();
-            $this->get($id);
-        } else {
-            if ($this->Odp_m->update($id) == false) {
+        if ($this->form_validation->run()) {
+            if ($this->odp_m->update($id)) {
+                send_success_message();
+                redirect($this->base_redirect);
+            } else {
                 send_error_message();
                 $this->get($id);
-            } else {
-                send_success_message();
-
-                redirect($this->base_redirect);
             }
+        } 
+        else {
+            send_error_message();
+            $this->get($id);
+            
         }
     }
 

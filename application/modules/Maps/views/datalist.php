@@ -1,27 +1,41 @@
     <?php
-    $json = file_get_contents("data.json");
+        // $json = file_get_contents("data.json");
 
-    $r = json_decode($json);
+        // $r = json_decode($json);
 
-        $json = json_encode($r->data);
+        // $json = json_encode($r->data);
 
-        // var_dump($r->data);
+        // echo $json;
         // die();
     ?>
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
       <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyAqhJ6sg9DMHKhLvWrzUs96NDMemaDXriw" type="text/javascript"></script>
+
     
     
     <script type="text/javascript">
         var map;
 
-            var twitter = <?php echo $json ?>;
+            var json_data = <?php echo $json ?>;
          
       </script>
       <script type="text/javascript">
-        function BuatMarker(lat, long, keterangan) {
+        function BuatMarker(lat, long, warna, keterangan) {
 
-        var myIcon = new GIcon(G_DEFAULT_ICON,'http://lgcdn.bluebath.com/media/wysiwyg/twitter-icon-color.png');
+        var link_marker = '';
+        if(warna=='merah'){
+            link_marker = '<?php asset_back('images/marker_red.png')?>';
+        }
+        else if(warna=='kuning'){
+            link_marker = '<?php asset_back('images/marker_yellow.png')?>';
+        }
+        else{
+            link_marker = '<?php asset_back('images/marker_green.png')?>';
+        }
+
+
+        var myIcon = new GIcon(G_DEFAULT_ICON,link_marker);
+
         myIcon.iconSize = new GSize(25,25);
 
         var marker = new GMarker(new GLatLng(lat, long),{
@@ -39,10 +53,10 @@
           if (GBrowserIsCompatible()) {
             map = new GMap2(document.getElementById("map"));
             map.addControl(new GSmallMapControl());
-            var location = new GLatLng(-6.502962,116.9182784);
-            map.setCenter(location, 5);
-            for(i=0;i<twitter.length;i++){
-              BuatMarker(twitter[i].lat,twitter[i].long,twitter[i].tooltip); 
+            var location = new GLatLng(-6.857593,107.710362);
+            map.setCenter(location, 9);
+            for(i=0;i<json_data.length;i++){
+              BuatMarker(json_data[i].latitude,json_data[i].longitude,json_data[i].keterangan,json_data[i].odp_name); 
             }
           }
         }
@@ -52,7 +66,7 @@
     <style>
         #map {
             width: 100%;
-            height: 500px;
+            height: 600px;
         }
       </style> 
 
@@ -110,7 +124,7 @@
                         <option value="1">Badan Usaha Milik Negara (BUMN)</option><option value="2">Badan Usaha Milik Swasta (BUMS)</option><option value="3">Koperasi</option>                   </select>
                         </div>
                       </div> -->
-                      <div class="col-lg-10">
+                      <!-- <div class="col-lg-10">
                         <div class="form-group">
                           <label>Keyword Lokasi</label>
                           <input type="text" name="nama_lokasi" value="<?php  ?>" placeholder="Masukan lokasi" class="form-control">
@@ -121,7 +135,7 @@
                           <label>&nbsp</label>
                           <input type="submit" name="Cari" value="Cari" class="form-control">
                         </div>
-                      </div>
+                      </div> -->
                     </form>
                 </div>
                 <!-- /.row -->
@@ -176,14 +190,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($result as $r): ?>
+                                        <?php $i=1;?>
+                                        <?php foreach ($results as $r): ?>
                                             <tr>
-                                                <td><?php echo $r->id ?></td>
+                                                <td><?php echo $i ?></td>
                                                 <td><?php echo $r->odp_name ?></td>
                                                 <td><?php echo $r->latitude ?></td>
                                                 <td><?php echo $r->longitude ?></td>
                                                 <td><?php echo $r->keterangan ?></td>
-                                            </tr>                                            
+                                            </tr>
+                                            <?php $i++ ?>                                            
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>

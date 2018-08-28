@@ -142,31 +142,47 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-location-arrow fa-fw"></i> Tabel Lokasi Berdasarkan Keywords. <br/><span style="color:red">*Long Lat (Menggunakan API Google Map berdasarkan lokasi)</span></h3>
-                            </div>
-                            <div class="panel-body">
-                                <table id="example" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
-                                    <thead>
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <h1 class="page-header">
+                                  ODP
+                              </h1>
+                      <!--         <ol class="breadcrumb">
+                                  <li class="active">
+                                      <i class="fa fa-dashboard"></i> Table Data User 
+                                  </li>
+                              </ol> -->
+                              <?php load_notif() ?>
+                          </div>
+
+
+                          <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">List ODP</h3>
+                                    <div class="btn-group pull-right">
+
+                                    </div>                                     
+                                </div>
+                                <div class="panel-body">
+                                    <table id="example1" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
+                                        <thead>
                                         <tr>
-                                            <th>Foto Akun</th>
-                                            <th>Nama Pengguna</th>
-                                            <th>Tweet</th>
-                                            <th>Long Lat</th>
-                                            <th>Link Status</th>
+                                            <th>No</th>
+                                            <th>ODP NAME</th>
+                                            <th>LATITUDE</th>
+                                            <th>LONGITUDE</th>
+                                            <th>KETERANGAN</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($r->data as $i): ?>
+                                        <?php foreach ($result as $r): ?>
                                             <tr>
-                                                <td><img src="<?php echo $i->profile_image_url ?>"></td>
-                                                <td><a href="<?php echo $i->link_account ?>" target="_blank"><?php echo $i->name ?></a></td>
-                                                <td><?php echo $i->tweet ?></td>
-                                                <td><?php echo $i->long.','.$i->lat ?></td>
-                                                <td><a href="<?php echo $i->link ?>" target="_blank">Lihat Status</a></td>
+                                                <td><?php echo $r->id ?></td>
+                                                <td><?php echo $r->odp_name ?></td>
+                                                <td><?php echo $r->latitude ?></td>
+                                                <td><?php echo $r->longitude ?></td>
+                                                <td><?php echo $r->keterangan ?></td>
                                             </tr>                                            
                                         <?php endforeach ?>
                                     </tbody>

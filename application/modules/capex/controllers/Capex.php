@@ -99,6 +99,7 @@ class Capex extends MX_Controller
         $this->form_validation->set_rules('value_trancurr','Value TranCurr','required|trim');
         $this->form_validation->set_rules('debit_date','Debit Date','required|trim');
         $this->form_validation->set_rules('vendor2','Vendor2','required|trim');
+
         if ($this->form_validation->run()) {
             if ($this->capex_m->update($id)) {
                 send_success_message();

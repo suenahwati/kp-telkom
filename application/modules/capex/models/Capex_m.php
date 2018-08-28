@@ -118,7 +118,7 @@ class Capex_m extends CI_Model
 
         $data = array(
             'new_co' => $this->input->post('new_co'),
-            'docc' => sha1($this->input->post('docc')),
+            'docc' => $this->input->post('docc'),
             'witel' => $this->input->post('witel'),
             'packet' => $this->input->post('packet'),
             'wbs_element' => $this->input->post('wbs_element'),

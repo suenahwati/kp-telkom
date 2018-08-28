@@ -127,83 +127,41 @@ class Odp_m extends CI_Model
         return false;
     }
 
-    public function login()
+    public function save()
     {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $data = array(
+            'id' => get_uuid(),
+            'noss_id' => $this->input->post('noss_id'),
+            'odp_index' => sha1($this->input->post('odp_index')),
+            'odp_name' => $this->input->post('odp_name'),
+            'latitude' => $this->input->post('latitude'),
+            'longitude' => $this->input->post('longitude'),
+            'clusname' => $this->input->post('clusname'),
+            'clusterstatus' => $this->input->post('clusterstatus'),
+            'avai' => $this->input->post('avai'),
+            'used' => $this->input->post('used'),
+            'rsk' => $this->input->post('rsk'),
+            'rsv' => $this->input->post('rsv'),
+            'is_total' => $this->input->post('istotal'),
+            'regional' => $this->input->post('regional'),
+            'witel' => $this->input->post('witel'),
+            'datel' => $this->input->post('datel'),
+            'sto' => $this->input->post('sto'),
+            'sto_desc' => $this->input->post('sto_desc'),
+            'odp_info' => $this->input->post('odp_info'),
+            'update_date' => $this->input->post('update_date'),
+            'keterangan' => $this->input->post('keterangan'),
+            'created_by' => $this->session->userdata('logged_in')['id'],
+            'date_created' => date("Y-m-d H:i:s", time())
+        );
 
-        $this->db->from($this->_table);
-        $this->db->where('username', $username);
-        $this->db->where('password=SHA1("' . $password . '")', '', false);
-        $this->db->where('active = 1');
-        $result = $this->db->get();
+        $this->db->insert('odp',$data);
 
-        if ($result->num_rows() == 0) {
-            return false;
-        } else {
-            $userdata = $result->row();
-            $session_data = array(
-                'id' => $userdata->id,
-                // 'group_id' => $this->get_user_group($userdata->id),
-                'full_name' => $userdata->first_name . ' ' . $userdata->last_name,
-                'username' => $userdata->username,
-                'email' => $userdata->email,
-                'photo_profile' => $userdata->image,
-                'language'=> $userdata->language,
-                'logged_in' => TRUE
-            );
-
-            $this->session->set_userdata('logged_in', $session_data);
-
-            $data = array('last_login' => date("Y-m-d H:i:s", time()));
-            $this->db->where('id', $userdata->id);
-            $this->db->update($this->_table,$data);
-
+        if ($this->db->affected_rows() > 0) {
             return true;
         }
+        return false;
     }
-
-    public function signup()
-    {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-
-        $this->db->from($this->_table);
-        $this->db->where('username', $username);
-        $this->db->where('password=SHA1("' . $password . '")', '', false);
-        $this->db->where('active = 1');
-        $result = $this->db->get();
-
-        if ($result->num_rows() == 0) {
-            return false;
-        } else {
-            $userdata = $result->row();
-            $session_data = array(
-                'id' => $userdata->id,
-                // 'group_id' => $this->get_user_group($userdata->id),
-                'full_name' => $userdata->first_name . ' ' . $userdata->last_name,
-                'username' => $userdata->username,
-                'email' => $userdata->email,
-                'photo_profile' => $userdata->image,
-                'language'=> $userdata->language,
-                'logged_in' => TRUE
-            );
-
-            $this->session->set_userdata('logged_in', $session_data);
-
-            $data = array('last_login' => date("Y-m-d H:i:s", time()));
-            $this->db->where('id', $userdata->id);
-            $this->db->update($this->_table,$data);
-
-            return true;
-        }
-    }
-
-    public function logout()
-    {
-        $this->session->sess_destroy();
-    }
-
 
 
 }

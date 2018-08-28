@@ -17,14 +17,14 @@
 
       <?php input_text2('new_co', 'New/CO', null, true, false, false)?>
 
-     <!--  <?php 
-      $options = array(
-                  'laki' => 'Laki-laki',
-                  'per'=>'Perempuan' 
-                ); 
+     <?php 
+      // $options = array(
+      //             'laki' => 'Laki-laki',
+      //             'per'=>'Perempuan' 
+      //           ); 
       ?>
 
-      <?php input_select('new_co', 'New/CO', $options,'',true,false) ?> -->
+      <?php //input_select('new_co', 'New/CO', $options,'',true,false) ?> 
 
       <?php input_text2('docc', 'DoCC', null, true, false, false)?>
 

@@ -187,5 +187,16 @@ class Odp_m extends CI_Model
         return false;
     }
 
+    public function save_import($data)
+    {
+
+        $this->db->insert('odp',$data);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

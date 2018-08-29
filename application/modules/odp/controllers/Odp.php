@@ -24,7 +24,7 @@ class Odp extends MX_Controller
     }
 
 
-     public function create(){
+    public function create(){
 
         $this->template->load('backend_template', 'create', null);
 
@@ -113,6 +113,168 @@ class Odp extends MX_Controller
             send_error_message();
             $this->session->set_flashdata('error', 'Failed to Delete Data');
         }
+    }
+
+    public function import(){
+
+        $this->template->load('backend_template', 'import', null);
+
+    }
+
+    public function import_action() {
+
+        // load librarynya terlebih dahulu
+        // jika digunakan terus menerus lebih baik load ini ditaruh di auto load
+        $this->load->library ( array (
+                'PHPExcel/PHPExcel'
+        ) );
+        
+        $fileName = time () .'_'.$_FILES ['file'] ['name'];
+        
+        $config ['upload_path'] = './uploads/'; // buat folder dengan nama assets di root folder
+        $config ['file_name'] = $fileName;
+        $config ['allowed_types'] = 'xls';
+        $config ['max_size'] = 10000;
+        $config ['overwrite'] = true;
+        
+        $this->load->library ( 'upload' );
+        $this->upload->initialize ( $config );
+        
+        if (! $this->upload->do_upload ( 'file' ))
+            $this->upload->display_errors ();
+            
+            $media = $this->upload->data ();
+            
+            $this->load->helper ( 'file' );
+            $inputFileName = './uploads/' . $media ['file_name'];
+            
+            try {
+                $inputFileType = PHPExcel_IOFactory::identify ( $inputFileName );
+                $objReader = PHPExcel_IOFactory::createReader ( $inputFileType );
+                $objPHPExcel = $objReader->load ( $inputFileName );
+                
+            } catch ( Exception $e ) {
+                
+                die ( 'Error loading file "' . pathinfo ( $inputFileName, PATHINFO_BASENAME ) . '": ' . $e->getMessage () );
+            }
+            
+            $sheet = $objPHPExcel->getSheet ( 0 );
+            $highestRow = $sheet->getHighestRow ();
+            $highestColumn = $sheet->getHighestColumn ();
+            
+            // get current period and version
+            
+            for($row = 2; $row <= $highestRow; $row ++) { // Read a row of data into an array
+                $rowData = $sheet->rangeToArray ( 'B' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE );
+                if ($rowData [0] [0] != null && $rowData [0] [0] != "" && trim ( $rowData [0] [0] ) != "LOCATION CODE") {
+                    // Area id kalau tidak ada, tidak diinput based on request ci siska on 17 July 2017
+                    //$location_id = $rowData [0] [0];
+
+
+                            // $data = array(
+                            //     'id' => get_uuid(),
+                            //     'noss_id' => $this->input->post('noss_id'),
+                            //     'odp_index' => $this->input->post('odp_index'),
+                            //     'odp_name' => $this->input->post('odp_name'),
+                            //     'latitude' => $this->input->post('latitude'),
+                            //     'longitude' => $this->input->post('longitude'),
+                            //     'clusname' => $this->input->post('clusname'),
+                            //     'clusterstatus' => $this->input->post('clusterstatus'),
+                            //     'avai' => $this->input->post('avai'),
+                            //     'used' => $this->input->post('used'),
+                            //     'rsk' => $this->input->post('rsk'),
+                            //     'rsv' => $this->input->post('rsv'),
+                            //     'is_total' => $this->input->post('istotal'),
+                            //     'regional' => $this->input->post('regional'),
+                            //     'witel' => $this->input->post('witel'),
+                            //     'datel' => $this->input->post('datel'),
+                            //     'sto' => $this->input->post('sto'),
+                            //     'sto_desc' => $this->input->post('sto_desc'),
+                            //     'odp_info' => $this->input->post('odp_info'),
+                            //     'update_date' => $this->input->post('update_date'),
+                            //     'keterangan' => $this->input->post('keterangan'),
+                            //     'created_by' => $this->session->userdata('logged_in')['id'],
+                            //     'date_created' => date("Y-m-d H:i:s", time())
+                            // );
+
+
+
+
+
+                    var_dump($rowData);
+                    
+                }
+            }
+
+            die();
+            
+            $this->session->set_flashdata ( 'success', 'Success Import Data' );
+            unlink ( './uploads/' . $media ['file_name'] );
+            redirect ('odp');
+    }
+
+    public function datatables(){
+        $table = 
+            "
+            (
+            SELECT
+             id,
+             noss_id,
+             odp_index,
+             odp_name,
+             latitude,
+             longitude,
+             clusname,
+             clusterstatus,
+             avai,
+             used,
+             rsk,
+             rsv,
+             is_total,
+             regional,
+             witel,
+             datel,
+             sto,
+             sto_desc,
+             odp_info,
+             update_date,
+             keterangan,
+             date_created,
+             date_modified,
+             created_by,
+             modified_by,
+             deleted
+            FROM odp 
+            WHERE deleted='0'
+            ) temp
+            ";  
+
+        $columns = array(
+            array('db' => 'id', 'dt' => 0 ),
+            array('db' => 'odp_name', 'dt' => 1 ),
+            array('db' => 'latitude', 'dt' => 2 ),
+            array('db' => 'longitude', 'dt' => 3 ),
+            array('db' => 'keterangan', 'dt' => 4 ),                        
+            array(
+                'db'        => 'id',
+                'dt'        => 5,
+                'formatter' => function( $i, $row ) {
+                    $html = '
+                    <center>
+                        <a href="'.base_url('odp/get/'.$i).'" title="Edit Data" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="left"><i class="fa fa-pencil"></i>Edit</a>
+                        <a href="'.base_url('odp/delete/'.$i).'" class="btn btn-danger btn-xs" onclick="return confirm(\'Sure to remove data?\');" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                    </center>';
+                    return $html;
+                }
+            ),
+        );
+
+        $primaryKey = 'id';
+
+        $condition = null;
+
+        tarkiman_datatable($table,$columns,$condition,$primaryKey);
+
     }
 
 }

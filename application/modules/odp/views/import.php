@@ -21,6 +21,12 @@
 		    	<input type="file" name="file" class="form-control-file" id="file">
 		  	</div>
 	  	</div>
+        <div class="clearfix"></div>
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <span><a href="<?php echo base_url('uploads/templates/sample_data_odp.xlsx') ?>">Download template (.xls/.xlsx)</a></span>
+            </div>
+        </div>
 
       <div class="col-lg-12">
         <div class="form-group">

@@ -133,7 +133,7 @@ class Odp extends MX_Controller
         
         $config ['upload_path'] = './uploads/'; // buat folder dengan nama assets di root folder
         $config ['file_name'] = $fileName;
-        $config ['allowed_types'] = 'xls';
+        $config ['allowed_types'] = 'xls|xlsx';
         $config ['max_size'] = 10000;
         $config ['overwrite'] = true;
         
@@ -165,52 +165,262 @@ class Odp extends MX_Controller
             // get current period and version
             
             for($row = 2; $row <= $highestRow; $row ++) { // Read a row of data into an array
-                $rowData = $sheet->rangeToArray ( 'B' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE );
-                if ($rowData [0] [0] != null && $rowData [0] [0] != "" && trim ( $rowData [0] [0] ) != "LOCATION CODE") {
+                $rowData = $sheet->rangeToArray ( 'A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE );
+                if ($rowData [0] [0] != null && $rowData [0] [0] != "") {
                     // Area id kalau tidak ada, tidak diinput based on request ci siska on 17 July 2017
                     //$location_id = $rowData [0] [0];
 
 
-                            // $data = array(
-                            //     'id' => get_uuid(),
-                            //     'noss_id' => $this->input->post('noss_id'),
-                            //     'odp_index' => $this->input->post('odp_index'),
-                            //     'odp_name' => $this->input->post('odp_name'),
-                            //     'latitude' => $this->input->post('latitude'),
-                            //     'longitude' => $this->input->post('longitude'),
-                            //     'clusname' => $this->input->post('clusname'),
-                            //     'clusterstatus' => $this->input->post('clusterstatus'),
-                            //     'avai' => $this->input->post('avai'),
-                            //     'used' => $this->input->post('used'),
-                            //     'rsk' => $this->input->post('rsk'),
-                            //     'rsv' => $this->input->post('rsv'),
-                            //     'is_total' => $this->input->post('istotal'),
-                            //     'regional' => $this->input->post('regional'),
-                            //     'witel' => $this->input->post('witel'),
-                            //     'datel' => $this->input->post('datel'),
-                            //     'sto' => $this->input->post('sto'),
-                            //     'sto_desc' => $this->input->post('sto_desc'),
-                            //     'odp_info' => $this->input->post('odp_info'),
-                            //     'update_date' => $this->input->post('update_date'),
-                            //     'keterangan' => $this->input->post('keterangan'),
-                            //     'created_by' => $this->session->userdata('logged_in')['id'],
-                            //     'date_created' => date("Y-m-d H:i:s", time())
-                            // );
+                            $data = array(
+                                'id' => get_uuid(),
+                                // 'noss_id' => $this->input->post('noss_id'),
+                                // 'odp_index' => $this->input->post('odp_index'),
+                                'odp_name' => $rowData[0][0],
+                                'latitude' => $rowData[0][1],
+                                'longitude' => $rowData[0][2],
+                                // 'clusname' => $this->input->post('clusname'),
+                                // 'clusterstatus' => $this->input->post('clusterstatus'),
+                                // 'avai' => $this->input->post('avai'),
+                                // 'used' => $this->input->post('used'),
+                                // 'rsk' => $this->input->post('rsk'),
+                                // 'rsv' => $this->input->post('rsv'),
+                                // 'is_total' => $this->input->post('istotal'),
+                                // 'regional' => $this->input->post('regional'),
+                                // 'witel' => $this->input->post('witel'),
+                                // 'datel' => $this->input->post('datel'),
+                                // 'sto' => $this->input->post('sto'),
+                                // 'sto_desc' => $this->input->post('sto_desc'),
+                                // 'odp_info' => $this->input->post('odp_info'),
+                                // 'update_date' => $this->input->post('update_date'),
+                                'keterangan' => $rowData[0][3],
+                                'created_by' => $this->session->userdata('logged_in')['id'],
+                                'date_created' => date("Y-m-d H:i:s", time())
+                            );
 
+                            $this->odp_m->save_import($data);
 
-
-
-
-                    var_dump($rowData);
+                    //var_dump($rowData);
                     
                 }
             }
-
-            die();
             
             $this->session->set_flashdata ( 'success', 'Success Import Data' );
             unlink ( './uploads/' . $media ['file_name'] );
             redirect ('odp');
+    }
+
+        public function download_excel($supplier){
+
+            //load librarynya terlebih dahulu
+            //jika digunakan terus menerus lebih baik load ini ditaruh di auto load
+            $this->load->library("PHPExcel/PHPExcel");
+ 
+            //membuat objek PHPExcel
+            $objPHPExcel = new PHPExcel();
+ 
+            //set Sheet yang akan diolah 
+            $objPHPExcel->setActiveSheetIndex(0)
+                    //mengisikan value pada tiap-tiap cell, A1 itu alamat cellnya 
+                    //Hello merupakan isinya                                                                 
+
+                                        ->setCellValue('A1', 'ps_category_list_id')
+                                        ->setCellValue('B1', 'ps_product_name')
+                                        ->setCellValue('C1', 'ps_product_description')
+                                        ->setCellValue('D1', 'ps_price')
+                                        ->setCellValue('E1', 'ps_stock')
+                                        ->setCellValue('F1', 'ps_product_weight')
+                                        ->setCellValue('G1', 'ps_days_to_ship')
+                                        ->setCellValue('H1', 'ps_sku_ref_no_parent')
+                                        ->setCellValue('I1', 'ps_mass_upload_variation_help')
+                                        ->setCellValue('J1', 'ps_variation 1 ps_variation_sku')
+                                        ->setCellValue('K1', 'ps_variation 1 ps_variation_name')
+                                        ->setCellValue('L1', 'ps_variation 1 ps_variation_price')
+                                        ->setCellValue('M1', 'ps_variation 1 ps_variation_stock')
+                                        ->setCellValue('N1', 'ps_variation 2 ps_variation_sku')
+                                        ->setCellValue('O1', 'ps_variation 2 ps_variation_name')
+                                        ->setCellValue('P1', 'ps_variation 2 ps_variation_price')
+                                        ->setCellValue('Q1', 'ps_variation 2 ps_variation_stock')
+                                        ->setCellValue('R1', 'ps_variation 3 ps_variation_sku')
+                                        ->setCellValue('S1', 'ps_variation 3 ps_variation_name')
+                                        ->setCellValue('T1', 'ps_variation 3 ps_variation_price')
+                                        ->setCellValue('U1', 'ps_variation 3 ps_variation_stock')
+                                        ->setCellValue('V1', 'ps_variation 4 ps_variation_sku')
+                                        ->setCellValue('W1', 'ps_variation 4 ps_variation_name')
+                                        ->setCellValue('X1', 'ps_variation 4 ps_variation_price')
+                                        ->setCellValue('Y1', 'ps_variation 4 ps_variation_stock')
+                                        ->setCellValue('Z1', 'ps_variation 5 ps_variation_sku')
+                                        ->setCellValue('AA1', 'ps_variation 5 ps_variation_name')
+                                        ->setCellValue('AB1', 'ps_variation 5 ps_variation_price')
+                                        ->setCellValue('AC1', 'ps_variation 5 ps_variation_stock')
+                                        ->setCellValue('AD1', 'ps_variation 6 ps_variation_sku')
+                                        ->setCellValue('AE1', 'ps_variation 6 ps_variation_name')
+                                        ->setCellValue('AF1', 'ps_variation 6 ps_variation_price')
+                                        ->setCellValue('AG1', 'ps_variation 6 ps_variation_stock')
+                                        ->setCellValue('AH1', 'ps_variation 7 ps_variation_sku')
+                                        ->setCellValue('AI1', 'ps_variation 7 ps_variation_name')
+                                        ->setCellValue('AJ1', 'ps_variation 7 ps_variation_price')
+                                        ->setCellValue('AK1', 'ps_variation 7 ps_variation_stock')
+                                        ->setCellValue('AL1', 'ps_variation 8 ps_variation_sku')
+                                        ->setCellValue('AM1', 'ps_variation 8 ps_variation_name')
+                                        ->setCellValue('AN1', 'ps_variation 8 ps_variation_price')
+                                        ->setCellValue('AO1', 'ps_variation 8 ps_variation_stock')
+                                        ->setCellValue('AP1', 'ps_variation 9 ps_variation_sku')
+                                        ->setCellValue('AQ1', 'ps_variation 9 ps_variation_name')
+                                        ->setCellValue('AR1', 'ps_variation 9 ps_variation_price')
+                                        ->setCellValue('AS1', 'ps_variation 9 ps_variation_stock')
+                                        ->setCellValue('AT1', 'ps_variation 10 ps_variation_sku')
+                                        ->setCellValue('AU1', 'ps_variation 10 ps_variation_name')
+                                        ->setCellValue('AV1', 'ps_variation 10 ps_variation_price')
+                                        ->setCellValue('AW1', 'ps_variation 10 ps_variation_stock')
+                                        ->setCellValue('AX1', 'ps_variation 11 ps_variation_sku')
+                                        ->setCellValue('AY1', 'ps_variation 11 ps_variation_name')
+                                        ->setCellValue('AZ1', 'ps_variation 11 ps_variation_price')
+                                        ->setCellValue('BA1', 'ps_variation 11 ps_variation_stock')
+                                        ->setCellValue('BB1', 'ps_variation 12 ps_variation_sku')
+                                        ->setCellValue('BC1', 'ps_variation 12 ps_variation_name')
+                                        ->setCellValue('BD1', 'ps_variation 12 ps_variation_price')
+                                        ->setCellValue('BE1', 'ps_variation 12 ps_variation_stock')
+                                        ->setCellValue('BF1', 'ps_variation 13 ps_variation_sku')
+                                        ->setCellValue('BG1', 'ps_variation 13 ps_variation_name')
+                                        ->setCellValue('BH1', 'ps_variation 13 ps_variation_price')
+                                        ->setCellValue('BI1', 'ps_variation 13 ps_variation_stock')
+                                        ->setCellValue('BJ1', 'ps_variation 14 ps_variation_sku')
+                                        ->setCellValue('BK1', 'ps_variation 14 ps_variation_name')
+                                        ->setCellValue('BL1', 'ps_variation 14 ps_variation_price')
+                                        ->setCellValue('BM1', 'ps_variation 14 ps_variation_stock')
+                                        ->setCellValue('BN1', 'ps_variation 15 ps_variation_sku')
+                                        ->setCellValue('BO1', 'ps_variation 15 ps_variation_name')
+                                        ->setCellValue('BP1', 'ps_variation 15 ps_variation_price')
+                                        ->setCellValue('BQ1', 'ps_variation 15 ps_variation_stock')
+                                        ->setCellValue('BR1', 'ps_img_1')
+                                        ->setCellValue('BS1', 'ps_img_2')
+                                        ->setCellValue('BT1', 'ps_img_3')
+                                        ->setCellValue('BU1', 'ps_img_4')
+                                        ->setCellValue('BV1', 'ps_img_5')
+                                        ->setCellValue('BW1', 'ps_img_6')
+                                        ->setCellValue('BX1', 'ps_img_7')
+                                        ->setCellValue('BY1', 'ps_img_8')
+                                        ->setCellValue('BZ1', 'ps_img_9')
+                                        ->setCellValue('CA1', 'ps_mass_upload_shipment_help')
+                                        ->setCellValue('CB1', 'channel 80003 switch')
+                                        ->setCellValue('CC1', 'channel 80004 switch')
+                                        ->setCellValue('CD1', 'channel 80011 switch')
+                                        ->setCellValue('CE1', 'channel 80014 switch')
+                                        ->setCellValue('CF1', 'channel 80012 switch')
+                                        ->setCellValue('CG1', 'channel 80013 switch');
+
+            $data = $this->scrape_m->getAllProductBySupplierFormTableProductTMP($supplier);
+            $i=2;
+            foreach ($data as $r) {              
+
+                            $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue('A'.$i, $r->category)
+                            ->setCellValue('B'.$i, $r->product_name)
+                            ->setCellValue('C'.$i, $r->description)
+                            ->setCellValue('D'.$i, $r->sell_price)
+                            ->setCellValue('E'.$i, $r->stock)
+                            ->setCellValue('F'.$i, $r->weight)
+                            ->setCellValue('G'.$i, '3')
+                            ->setCellValue('H'.$i, $r->product_code)
+                            ->setCellValue('I'.$i, '')
+                            ->setCellValue('J'.$i, '')
+                            ->setCellValue('K'.$i, '')
+                            ->setCellValue('L'.$i, '')
+                            ->setCellValue('M'.$i, '')
+                            ->setCellValue('N'.$i, '')
+                            ->setCellValue('O'.$i, '')
+                            ->setCellValue('P'.$i, '')
+                            ->setCellValue('Q'.$i, '')
+                            ->setCellValue('R'.$i, '')
+                            ->setCellValue('S'.$i, '')
+                            ->setCellValue('T'.$i, '')
+                            ->setCellValue('U'.$i, '')
+                            ->setCellValue('V'.$i, '')
+                            ->setCellValue('W'.$i, '')
+                            ->setCellValue('X'.$i, '')
+                            ->setCellValue('Y'.$i, '')
+                            ->setCellValue('Z'.$i, '')
+                            ->setCellValue('AA'.$i, '')
+                            ->setCellValue('AB'.$i, '')
+                            ->setCellValue('AC'.$i, '')
+                            ->setCellValue('AD'.$i, '')
+                            ->setCellValue('AE'.$i, '')
+                            ->setCellValue('AF'.$i, '')
+                            ->setCellValue('AG'.$i, '')
+                            ->setCellValue('AH'.$i, '')
+                            ->setCellValue('AI'.$i, '')
+                            ->setCellValue('AJ'.$i, '')
+                            ->setCellValue('AK'.$i, '')
+                            ->setCellValue('AL'.$i, '')
+                            ->setCellValue('AM'.$i, '')
+                            ->setCellValue('AN'.$i, '')
+                            ->setCellValue('AO'.$i, '')
+                            ->setCellValue('AP'.$i, '')
+                            ->setCellValue('AQ'.$i, '')
+                            ->setCellValue('AR'.$i, '')
+                            ->setCellValue('AS'.$i, '')
+                            ->setCellValue('AT'.$i, '')
+                            ->setCellValue('AU'.$i, '')
+                            ->setCellValue('AV'.$i, '')
+                            ->setCellValue('AW'.$i, '')
+                            ->setCellValue('AX'.$i, '')
+                            ->setCellValue('AY'.$i, '')
+                            ->setCellValue('AZ'.$i, '')
+                            ->setCellValue('BA'.$i, '')
+                            ->setCellValue('BB'.$i, '')
+                            ->setCellValue('BC'.$i, '')
+                            ->setCellValue('BD'.$i, '')
+                            ->setCellValue('BE'.$i, '')
+                            ->setCellValue('BF'.$i, '')
+                            ->setCellValue('BG'.$i, '')
+                            ->setCellValue('BH'.$i, '')
+                            ->setCellValue('BI'.$i, '')
+                            ->setCellValue('BJ'.$i, '')
+                            ->setCellValue('BK'.$i, '')
+                            ->setCellValue('BL'.$i, '')
+                            ->setCellValue('BM'.$i, '')
+                            ->setCellValue('BN'.$i, '')
+                            ->setCellValue('BO'.$i, '')
+                            ->setCellValue('BP'.$i, '')
+                            ->setCellValue('BQ'.$i, '')
+                            ->setCellValue('BR'.$i, $r->image1)
+                            ->setCellValue('BS'.$i, $r->image2)
+                            ->setCellValue('BT'.$i, $r->image3)
+                            ->setCellValue('BU'.$i, $r->image4)
+                            ->setCellValue('BV'.$i, $r->image5)
+                            ->setCellValue('BW'.$i, '')
+                            ->setCellValue('BX'.$i, '')
+                            ->setCellValue('BY'.$i, '')
+                            ->setCellValue('BZ'.$i, '')
+                            ->setCellValue('CA'.$i, '')
+                            ->setCellValue('CB'.$i, 'Aktif')
+                            ->setCellValue('CC'.$i, '')
+                            ->setCellValue('CD'.$i, '')
+                            ->setCellValue('CE'.$i, '')
+                            ->setCellValue('CF'.$i, '')
+                            ->setCellValue('CG'.$i, '');
+                            $i++;
+                } //end foreach
+
+
+                //set title pada sheet (me rename nama sheet)
+                $objPHPExcel->getActiveSheet()->setTitle('Tokopedia Import Produk Masal');
+
+                //mulai menyimpan excel format xlsx, kalau ingin xls ganti Excel2007 menjadi Excel5          
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+                //sesuaikan headernya 
+                header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+                header("Cache-Control: no-store, no-cache, must-revalidate");
+                header("Cache-Control: post-check=0, pre-check=0", false);
+                header("Pragma: no-cache");
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                //ubah nama file saat diunduh
+                $excel_file_name = $supplier.'_products';
+                header('Content-Disposition: attachment;filename="'.$excel_file_name.'.xlsx"');
+                //unduh file
+                $objWriter->save("php://output");
+
     }
 
     public function datatables(){

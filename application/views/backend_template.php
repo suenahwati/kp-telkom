@@ -98,7 +98,6 @@
                           <li><a href="<?php echo base_url('capex') ?>">Input Progress Capex</a></li>
                         </ul>
                       </li>
-                    <li><a href="<?php echo base_url('upload-data') ?>">Upload Data</a></li>
                     <li><a href="<?php echo base_url('maps') ?>">Lihat Maps</a></li>
                     <li><a href="<?php echo base_url('user') ?>">User</a></li>
                 </ul>

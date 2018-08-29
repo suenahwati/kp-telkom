@@ -26,11 +26,56 @@ class Maps extends MX_Controller
         $this->template->load('backend_template', 'datalist', $data);
     }
 
-    public function getGeoJson(){
+    public function datatables(){
+        $table = 
+            "
+            (
+            SELECT
+             id,
+             noss_id,
+             odp_index,
+             odp_name,
+             latitude,
+             longitude,
+             clusname,
+             clusterstatus,
+             avai,
+             used,
+             rsk,
+             rsv,
+             is_total,
+             regional,
+             witel,
+             datel,
+             sto,
+             sto_desc,
+             odp_info,
+             update_date,
+             keterangan,
+             date_created,
+             date_modified,
+             created_by,
+             modified_by,
+             deleted
+            FROM odp 
+            WHERE deleted='0'
+            ) temp
+            ";  
 
-        $data['data'] = $this->maps_m->getData();
+        $columns = array(
+            array('db' => 'id', 'dt' => 0 ),
+            array('db' => 'odp_name', 'dt' => 1 ),
+            array('db' => 'latitude', 'dt' => 2 ),
+            array('db' => 'longitude', 'dt' => 3 ),
+            array('db' => 'keterangan', 'dt' => 4 )
+        );
 
-        echo json_encode($data);
+        $primaryKey = 'id';
+
+        $condition = null;
+
+        tarkiman_datatable($table,$columns,$condition,$primaryKey);
+
 
     }
 

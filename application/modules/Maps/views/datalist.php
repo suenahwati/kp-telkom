@@ -179,10 +179,10 @@
                                     </div>                                     
                                 </div>
                                 <div class="panel-body">
-                                    <table id="example1" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
+                                    <table id="tarkimanDatatables" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>NO</th>
                                             <th>ODP NAME</th>
                                             <th>LATITUDE</th>
                                             <th>LONGITUDE</th>
@@ -190,17 +190,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i=1;?>
-                                        <?php foreach ($results as $r): ?>
-                                            <tr>
-                                                <td><?php echo $i ?></td>
-                                                <td><?php echo $r->odp_name ?></td>
-                                                <td><?php echo $r->latitude ?></td>
-                                                <td><?php echo $r->longitude ?></td>
-                                                <td><?php echo $r->keterangan ?></td>
-                                            </tr>
-                                            <?php $i++ ?>                                            
-                                        <?php endforeach ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -208,9 +198,45 @@
                     </div>
                 </div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
-    </script>
+            <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/jquery.dataTables.min.js');?>"></script>
+            <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.buttons.min.js');?>"></script>
+            <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.fixedHeader.min.js')?>"></script>
+            <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.responsive.min.js')?>"></script>
+            <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/responsive.bootstrap.min.js');?>"></script>
+            <script type="text/javascript" src="<?php asset_back('js/tarkiman.min.js');?>"></script>
+            <script type="text/javascript">
+             
+                $(document).ready(function() {
+
+                    var table = $('#tarkimanDatatables').DataTable({
+                          "processing": true,
+                          "serverSide": true,
+                          "responsive": true,                          
+                          "search": {
+                            "caseInsensitive": false
+                          },
+                          "ajax": $.fn.dataTable.pipeline( {
+                              url: "<?php echo base_url('maps/datatables');?>",
+                              pages: 5 // number of pages to cache
+                          } ),
+                          "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                                var info = table.page.info();
+                                var page = info.page;
+                                var length = info.length;
+                                var index = (page * length + (iDisplayIndex +1));
+                                $('td:first', nRow).html(index);
+                                $('td:eq(1)', nRow).css( "text-align", "left" );
+                                $('td:eq(2)', nRow).css( "text-align", "left" );
+                                $('td:eq(3)', nRow).css( "text-align", "left" );
+                                $('td:eq(4)', nRow).css( "text-align", "left" );
+                                return nRow;
+                            },
+                            "columnDefs": [
+                              { responsivePriority: 1, targets: 4 }
+                            ]
+                    });
+
+              });
+
+            </script>
 

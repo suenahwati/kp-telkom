@@ -14,14 +14,14 @@
     <!-- Custom CSS -->
     <link href="<?php asset_back('css/thumbnail-gallery.css')?>" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/dataTables/css/jquery.dataTables.min.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/dataTables/css/buttons.dataTables.min.css')?>"/>
+    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/datatables/css/jquery.dataTables.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/datatables/css/buttons.dataTables.min.css')?>"/>
     <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/bootstrap-3.3.7/dist/css/bootstrap.min.css')?>">
     <script src="<?php asset_back('js/jquery.min.js')?>"></script>
     <script src="<?php asset_back('plugins/bootstrap-3.3.7/dist/js/bootstrap.min.js')?>"></script>
     <!-- dataTables -->
-    <script type="text/javascript" src="<?php asset_back('plugins/dataTables/js/jquery.dataTables.min.js')?>"></script>
-    <script type="text/javascript" src="<?php asset_back('plugins/dataTables/js/dataTables.buttons.min.js')?>"></script>
+    <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/jquery.dataTables.min.js')?>"></script>
+    <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.buttons.min.js')?>"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -125,9 +125,6 @@
     </div>
     <!-- /.container -->
 
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php asset_back('js/bootstrap.min.js')?>"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#example').DataTable();

@@ -9,7 +9,7 @@
         // die();
     ?>
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyAqhJ6sg9DMHKhLvWrzUs96NDMemaDXriw" type="text/javascript"></script>
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBnrmxUc_hxZuOzRU5g69kw97QhQrkiUzw" type="text/javascript"></script>
 
     
     

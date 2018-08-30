@@ -191,4 +191,24 @@ function dateDiff($d2, $d1)
     return round(abs(strtotime($d2) - strtotime($d1)) / 86400);
 }
 
+function tarkiman_datatable($table,$columns,$condition,$primaryKey='id')
+{
+    require __DIR__ . '/../libraries/ssp.class.php';
+
+    $CI =& get_instance();
+    $CI->load->database();
+
+    $sql_details = array(
+        'user' => $CI->db->username,
+        'pass' => $CI->db->password,
+        'db'   => $CI->db->database,
+        'host' => $CI->db->hostname
+    );
+
+    echo json_encode(
+        //SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+        SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, null, $condition)
+    );
+}
+
 ?>

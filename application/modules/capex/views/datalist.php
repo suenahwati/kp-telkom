@@ -21,13 +21,13 @@
               </div>                                     
           </div>
           <div class="panel-body">
-              <table id="example1" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
-                <label>Show <select name="tarkimanDatatables_length" aria-controls="tarkimanDatatables" class="">
+              <table id="tarkimanDatatables" class="dataTable cell-border stripe hover display" cellspacing="0" width="100%">
+                <!-- <label>Show <select name="tarkimanDatatables_length" aria-controls="tarkimanDatatables" class="">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
-                </select> entries</label>
+                </select> entries</label> -->
                   <thead>
                       <tr>
                           <th>No</th>
@@ -44,7 +44,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <?php foreach ($result as $r): ?>
+                      <!-- <?php foreach ($result as $r): ?>
                           <tr>
                               <td><?php echo $r->id ?></td>
                               <td><?php echo $r->new_co ?></td>
@@ -58,31 +58,69 @@
                               <td><?php echo $r->name ?></td>
                               <td class="dt-center"><?php echo btn_edit('capex/get/'.$r->id)?> <?php echo btn_delete('capex/delete/'.$r->id)?></td>
                           </tr>                                            
-                      <?php endforeach ?>
+                      <?php endforeach ?> -->
                   </tbody>
               </table>
           </div>
       </div>
   </div>
-          
-    
-    
+  
 </div>
 
+<script type="text/javascript" src="<?php asset_back('plugins/datatables/js/jquery.dataTables.min.js');?>">
+</script>
+<script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.buttons.min.js');?>"></script>
+<script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.fixedHeader.min.js')?>"></script>
+<script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.responsive.min.js')?>"></script>
+<script type="text/javascript" src="<?php asset_back('plugins/datatables/js/responsive.bootstrap.min.js');?>"></script>
+<script type="text/javascript" src="<?php asset_back('js/tarkiman.min.js');?>"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('#example1').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                text: 'Tambah Data',
-                action: function ( e, dt, node, config ) {
-                    window.location.href="<?php echo base_url('capex/create')?>";
+
+        var table = $('#tarkimanDatatables').DataTable({
+              "dom": 'Bfrtip',
+              "buttons": [
+                {
+                    "text": 'Tambah Data',
+                    action: function ( e, dt, node, config ) {
+                        window.location.href="<?php echo base_url('capex/create')?>";
+                    }
+                },
+                {
+                    "text": 'Import Data',
+                    action: function ( e, dt, node, config ) {
+                        window.location.href="<?php echo base_url('capex/import')?>";
+                    }
                 }
-            }
-        ]
-    } );
-} );
+              ],
+              "processing": true,
+              "serverSide": true,
+              "responsive": true,                          
+              "search": {
+                "caseInsensitive": false
+              },
+              "ajax": $.fn.dataTable.pipeline( {
+                  url: "<?php echo base_url('capex/datatables');?>",
+                  pages: 17 // number of pages to cache
+              } ),
+              "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    var info = table.page.info();
+                    var page = info.page;
+                    var length = info.length;
+                    var index = (page * length + (iDisplayIndex +1));
+                    $('td:first', nRow).html(index);
+                    $('td:eq(1)', nRow).css( "text-align", "left" );
+                    $('td:eq(2)', nRow).css( "text-align", "left" );
+                    $('td:eq(3)', nRow).css( "text-align", "left" );
+                    $('td:eq(4)', nRow).css( "text-align", "left" );
+                    return nRow;
+                },
+                "columnDefs": [
+                  { responsivePriority: 1, targets: 4 }
+                ]
+        });
+
+  });
 
 </script>

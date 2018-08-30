@@ -77,16 +77,16 @@ $db['default'] = array(
 	'dsn'	=> '',
 	
 	/*DEFAULT*/
-	// 'hostname' => 'localhost',
-	// 'username' => 'root',
-	// 'password' => '',
-	// 'database' => 'kp-telkom',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'kp-telkom',
 
 	/*SUENAH*/
-	'hostname' => '192.168.1.105',
-	'username' => 'suenah',
-	'password' => 'suenah',
-	'database' => 'kp-telkom',
+	// 'hostname' => '192.168.1.105',
+	// 'username' => 'suenah',
+	// 'password' => 'suenah',
+	// 'database' => 'kp-telkom',
 
 
 	'dbdriver' => 'mysqli',

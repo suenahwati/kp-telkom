@@ -17,8 +17,11 @@
     <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/datatables/css/jquery.dataTables.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/datatables/css/buttons.dataTables.min.css')?>"/>
     <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/bootstrap-3.3.7/dist/css/bootstrap.min.css')?>">
-    <script src="<?php asset_back('js/jquery.min.js')?>"></script>
-    <script src="<?php asset_back('plugins/bootstrap-3.3.7/dist/js/bootstrap.min.js')?>"></script>
+    <link rel="stylesheet" type="text/css" href="<?php asset_back('plugins/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.0.custom.css')?>">
+
+
+    <script type="text/javascript" src="<?php asset_back('js/jquery.min.js')?>"></script>
+    <script type="text/javascript" src="<?php asset_back('plugins/bootstrap-3.3.7/dist/js/bootstrap.min.js')?>"></script>
     <!-- dataTables -->
     <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/jquery.dataTables.min.js')?>"></script>
     <script type="text/javascript" src="<?php asset_back('plugins/datatables/js/dataTables.buttons.min.js')?>"></script>
@@ -124,9 +127,24 @@
     </div>
     <!-- /.container -->
 
+    <script type="text/javascript" src="<?php asset_back('plugins/jquery-ui-bootstrap/js/jquery-ui-1.9.2.custom.min.js')?>"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#example').DataTable();
+
+            // https://github.com/jquery-ui-bootstrap/jquery-ui-bootstrap
+            $('.datepicker').datepicker({
+                dateFormat: "dd-mm-yy",
+                altFormat: "yy-mm-dd"
+            });
+
+            // Getter
+            var altFormat = $( ".datepicker" ).datepicker( "option", "altFormat" );
+             
+            // Setter
+            $( ".datepicker" ).datepicker( "option", "altFormat", "yy-mm-dd" );
+
         } );
     </script>
 

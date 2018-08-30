@@ -17,6 +17,14 @@
 
       <?php input_text2('noss_id', 'NOSS ID', null, true, false, false)?>
 
+      <?php
+      $options = array('P' =>'Perempuan' ,'L'=>'Laki-laki');
+      ?>
+
+      <?php input_select2($field_name='gender', $label='Gender', $options,$selected = '',$required=false,$readonly=false, $disabled=false,$class ='col-md-6 col-xs-12',$clearfix=true) ?>
+
+      <?php input_date2('date', 'Date', null, true, true, false)?>
+
       <?php input_text2('odp_index', 'ODP INDEX', null, true, false, false)?>
 
       <?php input_text2('odp_name', 'ODP NAME', null, true, false, false)?>

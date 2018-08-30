@@ -677,30 +677,57 @@ function input_repeat_password($field_name, $label, $equalTo = '',$required = fa
       echo'</div>';
 }
 
-
-function input_select($field_name, $label, $options,$selected = '',$required='',$disabled=false,$class ='col-md-6 col-xs-12')
+function input_select($field_name, $label, $options,$selected = '',$required='',$readonly=false,$disabled=false,$class ='col-md-6 col-xs-12',$clearfix=true)
 {
-    $req = ($required) ? '<font color="red"> &nbsp; * </font>' : '';
-    $classRequired = ($required) ? 'required' : '';
+    $req = ($required) ? '<font color="red"> * </font>' : '';
 
     $attribut = array(
-        'class' => 'form-control select '.$classRequired,
+                    'name' => $field_name,
+                    'id' => $field_name,
+                    'class' => 'form-control select',
+                    'placeholder' => 'Enter '.$label,
+                );
+
+    !$disabled ?: $attribut['disabled'] = true;
+
+    !$readonly ?: $attribut['readonly'] = true;
+
+    echo'<div class="form-group">';
+        echo'<label class="col-md-2 col-xs-12 control-label">'.$label.$req.'</label>';
+        echo'<div class="'.$class.'">';                                            
+            echo form_dropdown($field_name, $options, $selected,$attribut);
+            echo'<span class="help-block"></span>';
+            echo '<font color="red">'.form_error($field_name).'</font>';
+        echo'</div>';
+    echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
+}
+
+
+function input_select2($field_name, $label, $options,$selected = '',$required=false,$readonly=false, $disabled=false,$class ='col-md-6 col-xs-12',$clearfix=true)
+{
+    $req = ($required) ? '<font color="red"> &nbsp; * </font>' : '';
+
+    $attribut = array(
+        'class' => 'form-control select ',
         'placeholder'=>'Choose '.$label,
         'data-live-search'=>'true'
     );
 
     !$disabled ?: $attribut['disabled'] = true;
+    !$readonly ?: $attribut['readonly'] = true;
 
-    echo'<div class="form-group">';
-          echo'<label class="col-md-3 col-xs-12 control-label">'.$label.$req.'</label>';
-          echo'<div class="'.$class.'">';                                                                                            
-              echo form_dropdown($field_name, $options, $selected,$attribut);
-              echo'<span class="help-block"></span>';
-              echo form_error($field_name);
-          echo'</div>';
-      echo'</div>';
+    echo'<div class="'.$class.'">';
+        echo '<div class="form-group">';
+          echo'<label>'.$label.$req.'</label>';
+          echo form_dropdown($field_name, $options, set_value($field_name, $selected),$attribut);
+          echo'<span class="help-block"></span>';
+          echo '<font color="red">'.form_error($field_name).'</font>';
+        echo '</div>';
+    echo '</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
 }
-
 
 
 function input_multiselect($field_name, $label, $options,$selected = '',$required='',$readonly=false)
@@ -1010,12 +1037,31 @@ function input_textarea_wysiwyg($field_name, $label, $value = '', $required=fals
 
 }
 
-// function input_checkbox($field_name, $default_val)
-// {
-//     $active = ($default_val) ? 'checked' : '';
-//     echo '<label><input type="checkbox" class="flat" name="active" value="1" ' . $active . ' /></label>';
-//     echo form_error($field_name);
-// }
+function input_date2($field_name, $label, $value = '',$required = false, $readonly=true, $disabled=false,$class='col-md-3 col-xs-12',$clearfix=true)
+{
+    $req = ($required) ? '<font color="red"> * </font>' : '';
+
+    $attribut = array(
+                    'name' => $field_name,
+                    'id' => $field_name,
+                    'class' => 'form-control datepicker',
+                    'placeholder' => 'Enter '.$label,
+                );
+
+    !$disabled ?: $attribut['disabled'] = true;
+
+    !$readonly ?: $attribut['readonly'] = true;
+
+    echo'<div class="'.$class.'">';
+        echo'<div class="form-group">';
+            echo'<label>'.$label.$req.'</label>';
+            echo form_input( $attribut, set_value($field_name, $value));
+            echo '<font color="red">'.form_error($field_name).'</font>';
+        echo'</div>';
+    echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
+}
 
 function input_date($field_name, $label, $value = '',$required = false, $readonly=false,$class='col-md-6 col-xs-12')
 {

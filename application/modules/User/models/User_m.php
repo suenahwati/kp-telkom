@@ -145,7 +145,7 @@ class User_m extends CI_Model
                 'username' => $userdata->username,
                 'email' => $userdata->email,
                 'photo_profile' => $userdata->image,
-                'language'=> $userdata->language,
+                'group'=> $userdata->group,
                 'logged_in' => TRUE
             );
 

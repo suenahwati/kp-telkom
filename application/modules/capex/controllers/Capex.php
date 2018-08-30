@@ -12,6 +12,8 @@ class Capex extends MX_Controller
     {
         parent::__construct();
         $this->load->model('capex_m');
+        $this->checking();
+        $this->authorize();
     }
 
     public function index()

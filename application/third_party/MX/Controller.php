@@ -58,4 +58,111 @@ class MX_Controller
 	{
 		return CI::$APP->$class;
 	}
+
+	/*TARKIMAN CUSTOM*/
+
+	public function checking()
+    {
+        $no_redirect = array(
+            'login',
+            'user/login',
+            ''
+        );
+        if ($this->session->userdata('logged_in') == false && !in_array(uri_string(), $no_redirect)) {
+            redirect('login', 'refresh');
+        }
+    }
+
+    public function _auth()
+    {
+        
+       
+        if($this->session->userdata('logged_in')['group']=='admin'){
+			$authorize_uri = array(
+				'odp',
+				'odp/create',
+				'odp/get',
+				'odp/save',
+				'odp/update',
+				'odp/delete',
+				'odp/import',
+				'odp/import_action',
+				'odp/datatables',
+				'capex',
+				'capex/create',
+				'capex/get',
+				'capex/save',
+				'capex/update',
+				'capex/delete',
+				'capex/import',
+				'capex/import_action',
+				'capex/datatables',
+				'maps',
+				'maps/datatables',
+				'user',
+				'user/create',
+				'user/get',
+				'user/save',
+				'user/update',
+				'user/delete',
+				'user/import',
+				'user/import_action',
+				'user/datatables');
+		}
+		elseif($this->session->userdata('logged_in')['group']=='user'){
+			$authorize_uri = array(
+				'odp',
+				'odp/create',
+				'odp/get',
+				'odp/save',
+				'odp/update',
+				'odp/delete',
+				'odp/import',
+				'odp/import_action',
+				'odp/datatables',
+				'capex',
+				'capex/create',
+				'capex/get',
+				'capex/save',
+				'capex/update',
+				'capex/delete',
+				'capex/import',
+				'capex/import_action',
+				'capex/datatables',
+				'maps',
+				'maps/datatables');
+		}
+		else{
+			$authorize_uri = array();
+		}
+
+		//$authorize_uri = $this->group_m->get_authorize_pages($this->session->userdata('logged_in')['id']);
+
+		return $authorize_uri;
+		
+    }
+
+    public function uri_check()
+    {
+        $uri = $this->uri->segment(1);
+        //$action = array('create','save','edit','remove','view','update');
+
+        $action = array();
+        if($this->uri->segment(2) != null && !in_array($this->uri->segment(2), $action)){
+            $uri.= '/'.$this->uri->segment(2);
+        }
+        return $uri;
+    }
+
+    public function authorize()
+    {
+        if ($this->uri_check() != 'login' && $this->uri_check() != 'user/login' && $this->uri_check() != 'user/logout' && $this->uri_check() != 'logout' && $this->uri_check() != '' && $this->uri->segment(1) != 'redirect' && $this->uri_check() != 'lockscreen' && $this->uri_check() != 'user/change_language') {
+            if (in_array($this->uri_check(), $this->_auth()) == false) {
+                //redirect('access_denied');
+                redirect('not-found');
+            }
+        }
+    }
+
+    /*TARKIMAN CUSTOM*/
 }

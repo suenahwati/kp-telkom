@@ -93,23 +93,40 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+
+                    <?php if (in_array('odp', get_pagedata())||in_array('capex', get_pagedata())): ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Input Data
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            
+                          <?php if (in_array('odp', get_pagedata())): ?>
                           <li><a href="<?php echo base_url('odp') ?>">Input Data Odp</a></li>
+                          <?php endif ?>
+
+                          <?php if (in_array('capex', get_pagedata())): ?>
                           <li><a href="<?php echo base_url('capex') ?>">Input Progress Capex</a></li>
+                          <?php endif ?>
+
                         </ul>
-                      </li>
+                    </li>
+                    <?php endif ?>
+
+                    <?php if (in_array('maps', get_pagedata())): ?>
                     <li><a href="<?php echo base_url('maps') ?>">Lihat Maps</a></li>
-                    <li><a href="<?php echo base_url('user') ?>">User</a></li>
+                    <?php endif ?>
+
+                    <?php if (in_array('user', get_pagedata())): ?>
+                        <li><a href="<?php echo base_url('user') ?>">User</a></li>                        
+                    <?php endif ?>
+                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')): ?>
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('logged_in')['full_name']?></a></li>
                         <li><a href="<?php echo base_url('logout') ?>"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>                        
                     <?php else:?>
-                        <li><a href="<?php echo base_url('sign-up') ?>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <!-- <li><a href="<?php echo base_url('sign-up') ?>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
                         <li><a href="<?php echo base_url('login') ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     <?php endif ?>
                 </ul>

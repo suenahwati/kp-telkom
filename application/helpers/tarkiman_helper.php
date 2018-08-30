@@ -1374,12 +1374,75 @@ function popup_selectbox($field_name, $label, $value = '',$required = false, $re
 
 function get_pagedata(){
 
-    $CI = &get_instance();
-    $CI->load->model('group/group_m');
-    $id = $CI->session->userdata('logged_in')['id'];
-    $page_data = $CI->group_m->get_authorize_pages($id);
+    // $CI = &get_instance();
+    // $CI->load->model('group/group_m');
+    // $id = $CI->session->userdata('logged_in')['id'];
+    // $page_data = $CI->group_m->get_authorize_pages($id);
 
-    return $page_data;
+    // return $page_data;
+
+    $CI = &get_instance();
+
+    if($CI->session->userdata('logged_in')['group']=='admin'){
+        $authorize_uri = array(
+                'odp',
+                'odp/create',
+                'odp/get',
+                'odp/save',
+                'odp/update',
+                'odp/delete',
+                'odp/import',
+                'odp/import_action',
+                'odp/datatables',
+                'capex',
+                'capex/create',
+                'capex/get',
+                'capex/save',
+                'capex/update',
+                'capex/delete',
+                'capex/import',
+                'capex/import_action',
+                'capex/datatables',
+                'maps',
+                'maps/datatables',
+                'user',
+                'user/create',
+                'user/get',
+                'user/save',
+                'user/update',
+                'user/delete',
+                'user/import',
+                'user/import_action',
+                'user/datatables');
+    }
+    elseif($CI->session->userdata('logged_in')['group']=='user'){
+        $authorize_uri = array(
+                'odp',
+                'odp/create',
+                'odp/get',
+                'odp/save',
+                'odp/update',
+                'odp/delete',
+                'odp/import',
+                'odp/import_action',
+                'odp/datatables',
+                'capex',
+                'capex/create',
+                'capex/get',
+                'capex/save',
+                'capex/update',
+                'capex/delete',
+                'capex/import',
+                'capex/import_action',
+                'capex/datatables',
+                'maps',
+                'maps/datatables');
+    }
+    else{
+        $authorize_uri = array();
+    }
+
+    return $authorize_uri;
 }
 
 function tarkiman_datatable($table,$columns,$condition,$primaryKey='id')

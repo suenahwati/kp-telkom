@@ -12,6 +12,8 @@ class Odp extends MX_Controller
     {
         parent::__construct();
         $this->load->model('odp_m');
+        $this->checking();
+        $this->authorize();
     }
 
     public function index()

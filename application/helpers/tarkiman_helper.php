@@ -1037,13 +1037,13 @@ function input_textarea_wysiwyg($field_name, $label, $value = '', $required=fals
 
 }
 
-function input_date2($field_name, $label, $value = '',$required = false, $readonly=true, $disabled=false,$class='col-md-3 col-xs-12',$clearfix=true)
+function input_date2($field_name, $label, $value = '',$required = false, $readonly=true, $disabled=false,$class='col-md-3 col-xs-12',$clearfix=true,$date_format='dd-mm-yy')
 {
     $req = ($required) ? '<font color="red"> * </font>' : '';
 
     $attribut = array(
-                    'name' => $field_name,
-                    'id' => $field_name,
+                    'name' => 'display_'.$field_name,
+                    'id' => 'display_'.$field_name,
                     'class' => 'form-control datepicker',
                     'placeholder' => 'Enter '.$label,
                 );
@@ -1055,11 +1055,22 @@ function input_date2($field_name, $label, $value = '',$required = false, $readon
     echo'<div class="'.$class.'">';
         echo'<div class="form-group">';
             echo'<label>'.$label.$req.'</label>';
-            echo form_input( $attribut, set_value($field_name, $value));
+            echo form_input( $attribut, set_value('display_'.$field_name, $value));
+            echo form_input( array('name'=>$field_name,'id'=>$field_name,'type'=>'hidden'),set_value($field_name, $value));
             echo '<font color="red">'.form_error($field_name).'</font>';
         echo'</div>';
     echo'</div>';
     echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
+    echo'
+    <script>
+    $(document).ready(function() {
+        $("#display_'.$field_name.'").datepicker({dateFormat: "'.$date_format.'",altFormat: "yy-mm-dd",altField: "#'.$field_name.'"});
+        var altField = $( "#display_'.$field_name.'" ).datepicker( "option", "altField" );
+        $("#display_'.$field_name.'" ).datepicker( "option", "altField", "#'.$field_name.'" );
+        } );
+    </script>
+    ';
 
 }
 

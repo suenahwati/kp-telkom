@@ -134,16 +134,18 @@
             $('#example').DataTable();
 
             // https://github.com/jquery-ui-bootstrap/jquery-ui-bootstrap
-            $('.datepicker').datepicker({
-                dateFormat: "dd-mm-yy",
-                altFormat: "yy-mm-dd"
-            });
+            // $('.datepicker').datepicker({
+            //     dateFormat: "dd-mm-yy",
+            //     altFormat: "yy-mm-dd",
+            //     altField: "#odp_index"
+            // });
 
-            // Getter
-            var altFormat = $( ".datepicker" ).datepicker( "option", "altFormat" );
+            // // Getter
+            // var altField = $( ".datepicker" ).datepicker( "option", "altField" );
              
-            // Setter
-            $( ".datepicker" ).datepicker( "option", "altFormat", "yy-mm-dd" );
+            // // Setter
+            // $( ".datepicker" ).datepicker( "option", "altField", "#odp_index" );
+
 
         } );
     </script>

@@ -25,6 +25,8 @@
 
       <?php input_date2('date', 'Date', null, true, true, false)?>
 
+      <?php input_date2('date2', 'Date2', null, true, true, false)?>
+
       <?php input_text2('odp_index', 'ODP INDEX', null, true, false, false)?>
 
       <?php input_text2('odp_name', 'ODP NAME', null, true, false, false)?>

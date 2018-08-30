@@ -542,6 +542,61 @@ function input_number($field_name, $label, $value = '',$required = false, $reado
       echo'</div>';
 }
 
+function input_number2($field_name, $label, $value = '',$required = false, $readonly=false, $disabled=false,$class='col-md-6 col-xs-12',$clearfix=true)
+{
+    $req = ($required) ? '<font color="red"> * </font>' : '';
+
+    $attribut = array(
+                    'name' => 'display_'.$field_name,
+                    'id' => 'display_'.$field_name,
+                    'class' => 'form-control',
+                    'placeholder' => 'Enter '.$label,
+                );
+
+    !$disabled ?: $attribut['disabled'] = true;
+
+    !$readonly ?: $attribut['readonly'] = true;
+
+    echo'<div class="'.$class.'">';
+        echo'<div class="form-group">';
+            echo'<label>'.$label.$req.'</label>';
+            echo form_input( $attribut, set_value('display_'.$field_name, $value));
+            echo form_input( array('name'=>$field_name,'id'=>$field_name,'type'=>'hidden'),set_value($field_name, $value));
+            echo '<font color="red">'.form_error($field_name).'</font>';
+        echo'</div>';
+    echo'</div>';
+    echo ($clearfix) ? '<div class="clearfix"></div>' : '';
+
+    echo'
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $("#display_'.$field_name.'").keypress(function(e) {
+                    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 46) {
+                        return false;
+                    }
+                    var number = $(this).val();
+                    var cekJumlahTitik = (number.match(/\./g) || []).length;
+                    if (cekJumlahTitik >= 1 && e.which == 46) {
+                        return false;
+                    }
+                });
+                $("#display_'.$field_name.'").keyup(function(e) {
+                    if ($(this).val() != "") {
+                        var number = $(this).val();
+                        number = number.replace(/,/g, "");
+                        if (!number.includes(".")) {
+                            var newNumber = parseFloat(number.replace(/,/g,)); 
+                            $(this).val(newNumber.toLocaleString("en-US"));
+                        }
+                        $("#'.$field_name.'").val(number);
+                    }
+                });
+            });
+        </script>
+    ';
+
+}
+
 function input_text_prepend($field_name, $label, $value = '',$required = false, $readonly=false, $prepend='')
 {
     $req = ($required) ? '<font color="red"> * </font>' : '';
@@ -1046,6 +1101,7 @@ function input_date2($field_name, $label, $value = '',$required = false, $readon
                     'id' => 'display_'.$field_name,
                     'class' => 'form-control datepicker',
                     'placeholder' => 'Enter '.$label,
+                    'style' => 'background-color: unset;'
                 );
 
     !$disabled ?: $attribut['disabled'] = true;

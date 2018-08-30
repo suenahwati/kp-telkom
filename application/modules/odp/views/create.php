@@ -51,9 +51,17 @@
 
       <?php input_text2('odp_info', 'ODP INFO', null, false, false, false)?>
 
-      <?php input_text2('update_date', 'UPDATE DATE', null, false, false, false)?>
+      <?php input_date2('update_date', 'UPDATE DATE', null, false, false, false)?>
 
-      <?php input_text2('keterangan', 'KETERANGAN', null, true, false, false)?>
+      <?php
+      $options = array(
+        'merah' =>'Merah',
+        'kuning'=>'Kuning',
+        'hijau'=>'Hijau'
+      );
+      ?>
+
+      <?php input_select2('keterangan','KETERANGAN', $options,'',false) ?>
 
       <div class="col-lg-12">
         <div class="form-group">

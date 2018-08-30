@@ -132,39 +132,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#example').DataTable();
-
-            // https://github.com/jquery-ui-bootstrap/jquery-ui-bootstrap
-            // $('.datepicker').datepicker({
-            //     dateFormat: "dd-mm-yy",
-            //     altFormat: "yy-mm-dd",
-            //     altField: "#odp_index"
-            // });
-
-            // // Getter
-            // var altField = $( ".datepicker" ).datepicker( "option", "altField" );
-             
-            // // Setter
-            // $( ".datepicker" ).datepicker( "option", "altField", "#odp_index" );
-
-            $('#odp_index').change(function(){
-                var _number = addCommas($(this).val());
-                $(this).val(_number)
-            });
-
-            function addCommas(nStr)
-            {
-                nStr += '';
-                x = nStr.split('.');
-                x1 = x[0];
-                x2 = x.length > 1 ? '.' + x[1] : '';
-                var rgx = /(\d+)(\d{3})/;
-                while (rgx.test(x1)) {
-                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                }
-                return x1 + x2;
-            }
-
-
         } );
     </script>
 

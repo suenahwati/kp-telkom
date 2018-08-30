@@ -59,6 +59,10 @@ class MX_Controller
 		return CI::$APP->$class;
 	}
 
+	/**
+	* @author Tarkiman <tarkiman.zone@gmail.com  | 085222241987 | https://www.linkedin.com/in/tarkiman | http://www.tarkiman.com >
+	*/
+
 	/*TARKIMAN CUSTOM*/
 
 	public function checking()

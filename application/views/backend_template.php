@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Tarkiman <tarkiman.zone@gmail.com  | 085222241987 | https://www.linkedin.com/in/tarkiman | http://www.tarkiman.com">
 
     <title>KP-Telkom</title>
 
@@ -99,7 +99,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Input Data
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            
+
                           <?php if (in_array('odp', get_pagedata())): ?>
                           <li><a href="<?php echo base_url('odp') ?>">Input Data Odp</a></li>
                           <?php endif ?>
